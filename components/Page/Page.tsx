@@ -1,6 +1,8 @@
 import * as React from "react";
 import Header from "../Header/Header";
 import Meta from "../Meta/Meta";
+import { ThemeProvider, theme } from "../../theme/theme";
+import { StyledDiv } from "./PageStyles";
 
 interface IPageProps {
   children?: any;
@@ -8,11 +10,13 @@ interface IPageProps {
 
 const Page: React.FunctionComponent<IPageProps> = props => {
   return (
-    <div>
-      <Meta />
-      <Header />
-      {props.children}
-    </div>
+    <ThemeProvider theme={theme}>
+      <StyledDiv>
+        <Meta />
+        <Header />
+        {props.children}
+      </StyledDiv>
+    </ThemeProvider>
   );
 };
 
