@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Advanced ReactJS course by Wes Bos",
   "main": "index.js",
+  "scripts": {
+    "dev": "next -p 8080",
+    "build": "next build",
+    "start": "next start",
+    "test": "NODE_ENV=test jest --watch",
+    "test-win": "SET NODE_ENV=test&& jest --watch",
+    "heroku-postbuild": "next build"
+  },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
     "apollo-boost": "^0.1.28",
@@ -29,15 +37,92 @@
     "styled-components": "^3.4.10",
     "waait": "^1.0.5"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "@types/node": "^12.12.14",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "casual": "^1.6.2",
+    "enzyme-to-json": "^3.4.3",
+    "graphql-tools": "^4.0.6",
+    "jest": "^23.6.0",
+    "jest-transform-graphql": "^2.1.0",
+    "typescript": "^3.7.2"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
+    "testPathIgnorePatterns": [
+      "<rootDir>/.next/",
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "\\.(gql|graphql)$": "jest-transform-graphql",
+      ".*": "babel-jest",
+      "^.+\\.js?$": "babel-jest"
+    }
+  },
+  "//": "This is our babel config, I prefer this over a .babelrc file",
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel",
+          "@zeit/next-typescript/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel",
+          "@zeit/next-typescript/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      }
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KyleDavisDev/sick-fits-frontend.git"
   },
-  "author": "Kyle DAvis",
+  "author": "Kyle Davis",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/KyleDavisDev/sick-fits-frontend/issues"
