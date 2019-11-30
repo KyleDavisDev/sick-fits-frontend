@@ -74,6 +74,7 @@
           [
             "styled-components",
             {
+              "preprocess": false,
               "ssr": true,
               "displayName": true
             }
