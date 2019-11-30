@@ -1,0 +1,46 @@
+{
+  "name": "sick-fits-frontend",
+  "version": "1.0.0",
+  "description": "Advanced ReactJS course by Wes Bos",
+  "main": "index.js",
+  "dependencies": {
+    "@zeit/next-typescript": "^1.1.1",
+    "apollo-boost": "^0.1.28",
+    "apollo-client": "^2.6.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "date-fns": "^2.8.1",
+    "downshift": "^2.2.3",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "lodash.debounce": "^4.0.8",
+    "next": "^7.0.3",
+    "next-with-apollo": "^3.4.0",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-adopt": "^0.6.0",
+    "react-apollo": "^2.5.8",
+    "react-dom": "^16.12.0",
+    "react-stripe-checkout": "^2.6.3",
+    "react-transition-group": "^2.9.0",
+    "styled-components": "^3.4.10",
+    "waait": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleDavisDev/sick-fits-frontend.git"
+  },
+  "author": "Kyle DAvis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KyleDavisDev/sick-fits-frontend/issues"
+  },
+  "homepage": "https://github.com/KyleDavisDev/sick-fits-frontend#readme"
+}
