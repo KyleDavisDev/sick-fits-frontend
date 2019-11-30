@@ -5,3 +5,4 @@ variables.env
 public/uploads
 public/avatars
 src/theme/fonts
+.next
