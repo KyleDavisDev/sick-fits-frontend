@@ -1,4 +1,7 @@
 import * as React from "react";
+import Link from "next/link";
+
+import { Logo } from "./HeaderStyles";
 import Nav from "../Nav/Nav";
 
 interface IHeaderProps {}
@@ -7,7 +10,11 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
   return (
     <div>
       <div className="bar">
-        <a href="#">Sick Fits</a>
+        <Logo>
+          <Link href="/">
+            <a>Sick Fits</a>
+          </Link>
+        </Logo>
         <Nav />
       </div>
       <div className="sub-bar">
