@@ -78,9 +78,11 @@ enum scale {
 export const theme: ThemeInterface = {
   primaryThemeColor: colors.red,
   black: colors.black,
+  siteBackgroundColor: colors.white,
   grey: colors.grey,
   lightGrey: colors.lightGrey,
   smoke: colors.smoke,
+  red: colors.red,
   maxPageWidth: scale.maxPageWidth,
   boxShadow: colors.boxShadow
 };
