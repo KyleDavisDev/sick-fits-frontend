@@ -1,19 +1,28 @@
 import * as React from "react";
 import Link from "next/link";
+import { NavStyles } from "./NavStyles";
 
 interface INavProps {}
 
 const Nav: React.FunctionComponent<INavProps> = props => {
   return (
-    <div>
-      <Link href="Sell">
+    <NavStyles>
+      <Link href="/Items">
+        <a>Items</a>
+      </Link>
+      <Link href="/Sell">
         <a>Sell</a>
       </Link>
-
-      <Link href="index">
-        <a>Index</a>
+      <Link href="/Signup">
+        <a>Signup</a>
       </Link>
-    </div>
+      <Link href="/Orders">
+        <a>Orders</a>
+      </Link>
+      <Link href="/Me">
+        <a>Account</a>
+      </Link>
+    </NavStyles>
   );
 };
 
