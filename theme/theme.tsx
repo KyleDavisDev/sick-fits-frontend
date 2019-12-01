@@ -4,7 +4,7 @@ const {
   default: styled,
   css,
   keyframes,
-  injectGlobal,
+  createGlobalStyle,
   ThemeProvider
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<
   ThemeInterface
@@ -87,5 +87,5 @@ export const theme: ThemeInterface = {
   boxShadow: colors.boxShadow
 };
 
-export { css, keyframes, injectGlobal, ThemeProvider };
+export { css, keyframes, createGlobalStyle, ThemeProvider };
 export default styled;

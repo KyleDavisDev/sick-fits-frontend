@@ -1,14 +1,15 @@
 import * as React from "react";
 import Header from "../Header/Header";
 import Meta from "../Meta/Meta";
-import { ThemeProvider, theme, injectGlobal } from "../../theme/theme";
+import { ThemeProvider, theme, createGlobalStyle } from "../../theme/theme";
 import { StyledDiv } from "./PageStyles";
 
 interface IPageProps {
   children?: any;
 }
 
-injectGlobal`
+// tslint:disable-next-line:no-unused-expression
+const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'radnika_next';
     src: url('/static/radnikanext-medium-webfont.woff2') format("woff2");
@@ -38,6 +39,7 @@ injectGlobal`
 const Page: React.FunctionComponent<IPageProps> = props => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <StyledDiv>
         <Meta />
         <Header />
