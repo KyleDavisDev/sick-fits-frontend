@@ -3,10 +3,16 @@
     "outDir": "./built/",
     "module": "esnext",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "es5", "es2015", "es2016"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es5",
+      "es2015",
+      "es2016"
+    ],
     "sourceMap": true,
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "moduleResolution": "node",
     "rootDir": "src",
     "noImplicitReturns": true,
@@ -16,9 +22,22 @@
     "noUnusedLocals": true,
     "removeComments": true,
     "esModuleInterop": true,
-    "typeRoots": ["./node_modules/@types"],
-    "baseUrl": "/"
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "baseUrl": "/",
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": ["./src/**/*", "./@types/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "./src/**/*",
+    "./@types/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
