@@ -1,14 +1,14 @@
 import * as React from "react";
 import Link from "next/link";
 
-import { Logo } from "./HeaderStyles";
+import { Logo, StyledHeader } from "./HeaderStyles";
 import Nav from "../Nav/Nav";
 
 interface IHeaderProps {}
 
 const Header: React.FunctionComponent<IHeaderProps> = props => {
   return (
-    <div>
+    <StyledHeader>
       <div className="bar">
         <Logo>
           <Link href="/">
@@ -21,7 +21,7 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
         <p>Search here</p>
       </div>
       <div>Cart</div>
-    </div>
+    </StyledHeader>
   );
 };
 
