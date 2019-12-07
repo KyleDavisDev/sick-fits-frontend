@@ -7,8 +7,8 @@ interface INavProps {}
 const Nav: React.FunctionComponent<INavProps> = props => {
   return (
     <NavStyles>
-      <Link href="/Items">
-        <a>Items</a>
+      <Link href="/Shop">
+        <a>Shop</a>
       </Link>
       <Link href="/Sell">
         <a>Sell</a>
