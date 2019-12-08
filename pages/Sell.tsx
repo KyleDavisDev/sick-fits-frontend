@@ -3,8 +3,17 @@ import Form from "../components/Form/Form";
 
 export interface ISellProps {}
 
-export default class Sell extends React.Component<ISellProps> {
-  state = {
+export interface ISellState {
+  title: string;
+  description: string;
+  image: string;
+  largeImage: string;
+  price: number;
+  [name: string]: string | number;
+}
+
+export default class Sell extends React.Component<ISellProps, ISellState> {
+  state: ISellState = {
     title: "",
     description: "",
     image: "",
