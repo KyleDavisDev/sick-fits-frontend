@@ -2,7 +2,7 @@ import * as React from "react";
 import Header from "../Header/Header";
 import Meta from "../Meta/Meta";
 import { ThemeProvider, theme, createGlobalStyle } from "../../theme/theme";
-import { StyledDiv } from "./PageStyles";
+import { StyledDiv, StyledInner } from "./PageStyles";
 
 interface IPageProps {
   children?: any;
@@ -43,7 +43,7 @@ const Page: React.FunctionComponent<IPageProps> = props => {
       <StyledDiv>
         <Meta />
         <Header />
-        {props.children}
+        <StyledInner>{props.children}</StyledInner>
       </StyledDiv>
     </ThemeProvider>
   );
