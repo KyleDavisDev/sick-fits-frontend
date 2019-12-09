@@ -2,6 +2,7 @@ import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Form from "../components/Form/Form";
+import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 
 export const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -49,8 +50,9 @@ export default class Sell extends React.Component<ISellProps, ISellState> {
         <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
           {(createItem, payload) => (
             <Form onSubmit={this.onSubmit}>
+              <ErrorMessage error={payload.error}></ErrorMessage>
               <h2>Sell an Item</h2>
-              <fieldset>
+              <fieldset disabled={true}>
                 <label htmlFor="title">
                   Title
                   <input
