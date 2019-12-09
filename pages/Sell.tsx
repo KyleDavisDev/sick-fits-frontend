@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
+import Router from "next/router";
 import gql from "graphql-tag";
 import Form from "../components/Form/Form";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
@@ -49,10 +50,14 @@ export default class Sell extends React.Component<ISellProps, ISellState> {
       <div>
         <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
           {(createItem, payload) => (
-            <Form onSubmit={this.onSubmit}>
+            <Form
+              onSubmit={async e => {
+                await this.onSubmit(e, createItem);
+              }}
+            >
               <ErrorMessage error={payload.error}></ErrorMessage>
               <h2>Sell an Item</h2>
-              <fieldset disabled={true}>
+              <fieldset disabled={payload.loading} aria-busy={payload.loading}>
                 <label htmlFor="title">
                   Title
                   <input
@@ -106,8 +111,13 @@ export default class Sell extends React.Component<ISellProps, ISellState> {
     this.setState({ [name]: val });
   };
 
-  public onSubmit = (e: React.FormEvent) => {
+  public onSubmit = async (e: React.FormEvent, fn: Function) => {
+    // prevent normal form submission
     e.preventDefault();
-    console.log("submit even");
+    //call api to submit data
+    const res = await fn();
+
+    //redirect user
+    Router.push({ pathname: "/item", query: { id: res.data.createItem.id } });
   };
 }
