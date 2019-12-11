@@ -33,15 +33,16 @@ export interface ISellState {
   image: string;
   largeImage: string;
   price: number;
+
   [name: string]: string | number;
 }
 
 export default class Sell extends React.Component<ISellProps, ISellState> {
   state: ISellState = {
-    title: "sample title",
-    description: "description",
-    image: "dog.jpg",
-    largeImage: "large-dog.jpg",
+    title: "",
+    description: "",
+    image: "",
+    largeImage: "",
     price: 15
   };
 
@@ -58,6 +59,18 @@ export default class Sell extends React.Component<ISellProps, ISellState> {
               <ErrorMessage error={payload.error}></ErrorMessage>
               <h2>Sell an Item</h2>
               <fieldset disabled={payload.loading} aria-busy={payload.loading}>
+                <label htmlFor="file">
+                  Upload File
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    placeholder="Upload an image..."
+                    required
+                    onChange={this.uploadFile}
+                  />
+                  {this.state.image && <img src={this.state.image} />}
+                </label>
                 <label htmlFor="title">
                   Title
                   <input
@@ -119,5 +132,25 @@ export default class Sell extends React.Component<ISellProps, ISellState> {
 
     //redirect user
     Router.push({ pathname: "/item", query: { id: res.data.createItem.id } });
+  };
+
+  public uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("upload file...");
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "sick-fits");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/kydavdev/image/upload",
+      { method: "POST", body: data }
+    );
+    const file = await res.json();
+
+    console.log(file);
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url
+    });
   };
 }
