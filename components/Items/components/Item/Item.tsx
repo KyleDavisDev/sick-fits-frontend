@@ -26,7 +26,7 @@ class Item extends React.Component<IItemProp, {}> {
         <p>{item.description}</p>
 
         <div className="buttonList">
-          <Link href={{ pathname: "update", query: { id: item.id } }}>
+          <Link href={{ pathname: "item/edit", query: { id: item.id } }}>
             <a>Edit</a>
           </Link>
           <button>Add to cart</button>
