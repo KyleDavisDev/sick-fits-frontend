@@ -2,10 +2,18 @@ import * as React from "react";
 
 import EditItem from "../../components/EditItem/EditItem";
 
-interface IEditProps {}
+interface IEditProps {
+  query: { id: string };
+}
 
-const Edit: React.FunctionComponent<IEditProps> = props => {
-  return <EditItem />;
-};
+class Edit extends React.PureComponent<IEditProps> {
+  static getInitialProps({ query }) {
+    return { query };
+  }
+
+  render() {
+    return <EditItem id={this.props.query.id} />;
+  }
+}
 
 export default Edit;
