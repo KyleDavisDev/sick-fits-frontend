@@ -134,13 +134,20 @@ export default class CreateItem extends React.Component<
     const res = await fn();
 
     //redirect user
-    Router.push({ pathname: "/item", query: { id: res.data.createItem.id } });
+    Router.push({
+      pathname: "/item/view",
+      query: { id: res.data.createItem.id }
+    });
   };
 
   public uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("upload file...");
     const files = e.target.files;
+    if (files.length === 0) {
+      return;
+    }
     const data = new FormData();
+
     data.append("file", files[0]);
     data.append("upload_preset", "sick-fits");
 
