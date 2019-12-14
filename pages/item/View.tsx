@@ -1,10 +1,17 @@
 import * as React from "react";
 import SingleItem from "../../components/SingleItem/SingleItems";
 
-interface IViewProps {}
+interface IViewProps {
+  query: { id: string };
+}
 
-const View: React.FunctionComponent<IViewProps> = props => {
-  return <SingleItem />;
-};
+class View extends React.PureComponent<IViewProps> {
+  static getInitialProps({ query }) {
+    return { query };
+  }
+  render() {
+    return <SingleItem id={this.props.query.id} />;
+  }
+}
 
 export default View;
