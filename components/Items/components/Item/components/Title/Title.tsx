@@ -10,7 +10,7 @@ interface ITitleProps {
 const Title: React.FunctionComponent<ITitleProps> = props => {
   return (
     <StyledText>
-      <Link href={{ pathname: "/item", query: { id: props.id } }}>
+      <Link href={{ pathname: "/item/view", query: { id: props.id } }}>
         <a>{props.children}</a>
       </Link>
     </StyledText>
