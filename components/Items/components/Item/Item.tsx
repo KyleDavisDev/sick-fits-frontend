@@ -3,6 +3,7 @@ import Link from "next/link";
 import Title from "./components/Title/Title";
 import PriceTag from "./components/PriceTag/PriceTag";
 import { StyledContainer } from "./ItemStyles";
+import DeleteItem from "../../../DeleteItem/DeleteItem";
 
 interface IItemProp {
   item: {
@@ -30,7 +31,7 @@ class Item extends React.Component<IItemProp, {}> {
             <a>Edit</a>
           </Link>
           <button>Add to cart</button>
-          <button>delete</button>
+          <DeleteItem id={this.props.item.id} />
         </div>
       </StyledContainer>
     );
