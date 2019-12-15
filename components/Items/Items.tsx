@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Center, ItemsList } from "./ItemStyles";
 import Item from "./components/Item/Item";
+import Pagination from "../Pagination/Pagination";
 
 export const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY {
@@ -23,6 +24,7 @@ export default class Items extends React.Component<IItemsProps> {
   public render() {
     return (
       <Center>
+        <Pagination />
         <p>Items!</p>
         <Query query={ALL_ITEMS_QUERY}>
           {payload => {
@@ -37,6 +39,7 @@ export default class Items extends React.Component<IItemsProps> {
             );
           }}
         </Query>
+        <Pagination />
       </Center>
     );
   }
