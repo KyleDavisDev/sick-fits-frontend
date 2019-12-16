@@ -18,13 +18,15 @@ export const ALL_ITEMS_QUERY = gql`
   }
 `;
 
-export interface IItemsProps {}
+export interface IItemsProps {
+  page?: number;
+}
 
 export default class Items extends React.Component<IItemsProps> {
   public render() {
     return (
       <Center>
-        <Pagination />
+        <Pagination page={this.props.page || 1} />
         <p>Items!</p>
         <Query query={ALL_ITEMS_QUERY}>
           {payload => {
@@ -39,7 +41,7 @@ export default class Items extends React.Component<IItemsProps> {
             );
           }}
         </Query>
-        <Pagination />
+        <Pagination page={this.props.page || 1} />
       </Center>
     );
   }
