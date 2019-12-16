@@ -42,10 +42,7 @@ const Pagination: React.StatelessComponent<IPaginationProps> = props => {
               </title>
             </Head>
             <PaginationStyles>
-              <Link
-                prefetch
-                href={{ pathname: "shop", query: { page: curPage - 1 } }}
-              >
+              <Link href={{ pathname: "shop", query: { page: curPage - 1 } }}>
                 <a className="prev" aria-disabled={curPage <= 1}>
                   &larr; Prev
                 </a>
@@ -53,10 +50,7 @@ const Pagination: React.StatelessComponent<IPaginationProps> = props => {
               <p>
                 Page {curPage} of {pages} !
               </p>
-              <Link
-                prefetch
-                href={{ pathname: "shop", query: { page: curPage + 1 } }}
-              >
+              <Link href={{ pathname: "shop", query: { page: curPage + 1 } }}>
                 <a className="next" aria-disabled={curPage >= pages}>
                   Next &rarr;
                 </a>
