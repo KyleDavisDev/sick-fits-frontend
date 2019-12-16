@@ -29,7 +29,13 @@ export default class Items extends React.Component<IItemsProps> {
       <Center>
         <Pagination page={this.props.page || 1} />
         <p>Items!</p>
-        <Query query={ALL_ITEMS_QUERY} variables={{ first: 4, skip: 2 }}>
+        <Query
+          query={ALL_ITEMS_QUERY}
+          variables={{
+            first: perPage,
+            skip: this.props.page * perPage - perPage
+          }}
+        >
           {payload => {
             if (payload.loading) return <p>Loading...</p>;
             if (payload.error) return <p>Error: {payload.error.message}</p>;
