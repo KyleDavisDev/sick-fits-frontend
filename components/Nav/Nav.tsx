@@ -1,12 +1,19 @@
 import * as React from "react";
 import Link from "next/link";
 import { NavStyles } from "./NavStyles";
+import User from "../User/User";
 
 interface INavProps {}
 
 const Nav: React.FunctionComponent<INavProps> = props => {
   return (
     <NavStyles>
+      <User>
+        {({ data: { me } }) => {
+          if (me) return <p>{me.name}</p>;
+          return null;
+        }}
+      </User>
       <Link href="/Shop">
         <a>Shop</a>
       </Link>
