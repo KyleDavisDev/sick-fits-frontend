@@ -9,7 +9,7 @@ export interface IFormProps {
 class Form extends React.Component<IFormProps> {
   public render() {
     return (
-      <StyledForm onSubmit={this.props.onSubmit}>
+      <StyledForm onSubmit={this.props.onSubmit} method="post">
         {this.props.children}
       </StyledForm>
     );
