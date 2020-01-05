@@ -3,8 +3,9 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { CURRENT_USER_QUERY } from "../User/User";
 
-const CREATEUSER_MUTATION = gql`
+export const CREATEUSER_MUTATION = gql`
   mutation CREATEUSER_MUTATION(
     $email: String!
     $name: String!
@@ -35,7 +36,11 @@ export default class CreateUser extends React.Component<
 
   public render() {
     return (
-      <Mutation mutation={CREATEUSER_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={CREATEUSER_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
         {(signup, { error, loading }) => {
           return (
             <Form
