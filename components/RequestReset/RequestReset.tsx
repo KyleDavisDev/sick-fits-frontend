@@ -16,18 +16,18 @@ const REQUEST_RESET_QUERY = gql`
   }
 `;
 
-export interface IRequestResetUserProps {}
+export interface IRequestResetProps {}
 
-export interface IRequestResetUserState {
+export interface IRequestResetState {
   email: string;
   loading: boolean;
   error?: string;
   [name: string]: string | boolean;
 }
 
-export default class RequestResetUser extends React.Component<
-  IRequestResetUserProps,
-  IRequestResetUserState
+export default class RequestReset extends React.Component<
+  IRequestResetProps,
+  IRequestResetState
 > {
   state = {
     email: "test@email.com",
