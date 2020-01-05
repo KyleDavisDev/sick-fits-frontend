@@ -7,29 +7,36 @@ interface INavProps {}
 
 const Nav: React.FunctionComponent<INavProps> = props => {
   return (
-    <NavStyles>
-      <User>
-        {({ data: { me } }) => {
-          if (me) return <p>{me.name}</p>;
-          return null;
-        }}
-      </User>
-      <Link href="/Shop">
-        <a>Shop</a>
-      </Link>
-      <Link href="/Sell">
-        <a>Sell</a>
-      </Link>
-      <Link href="/Signup">
-        <a>Signup</a>
-      </Link>
-      <Link href="/Orders">
-        <a>Orders</a>
-      </Link>
-      <Link href="/Me">
-        <a>Account</a>
-      </Link>
-    </NavStyles>
+    <User>
+      {({ data: { me } }) => {
+        return (
+          <NavStyles>
+            <Link href="/Shop">
+              <a>Shop</a>
+            </Link>
+
+            {me && (
+              <>
+                <Link href="/Sell">
+                  <a>Sell</a>
+                </Link>
+                <Link href="/Orders">
+                  <a>Orders</a>
+                </Link>
+                <Link href="/Me">
+                  <a>Account</a>
+                </Link>
+              </>
+            )}
+            {!me && (
+              <Link href="/Signup">
+                <a>Sign In</a>
+              </Link>
+            )}
+          </NavStyles>
+        );
+      }}
+    </User>
   );
 };
 
