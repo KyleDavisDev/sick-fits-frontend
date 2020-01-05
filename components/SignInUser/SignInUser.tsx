@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ApolloClient from "apollo-client";
+import { CURRENT_USER_QUERY } from "../User/User";
 
 const SIGNINUSER_QUERY = gql`
   query SIGNINUSER_QUERY($email: String!, $password: String!) {
@@ -29,7 +30,12 @@ export default class SignInUser extends React.Component<
   ISignInUserProps,
   ISignInUserState
 > {
-  state = { password: "", email: "", loading: false, error: "yo" };
+  state = {
+    password: "test",
+    email: "test@email.com",
+    loading: false,
+    error: ""
+  };
 
   public render() {
     return (
@@ -111,5 +117,18 @@ export default class SignInUser extends React.Component<
           loading: false
         });
       });
+
+    // refetch mutation so name shows up at top
+    // need to wait or else cookie may not be set in time
+    setTimeout(() => {
+      client
+        .query({
+          query: CURRENT_USER_QUERY,
+          fetchPolicy: "network-only"
+        })
+        .then(dat => {
+          console.log(dat.data);
+        });
+    }, 1000);
   };
 }
