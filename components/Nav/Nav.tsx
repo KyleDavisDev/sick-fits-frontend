@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { NavStyles } from "./NavStyles";
 import User from "../User/User";
+import SignOut from "../SignOut/SignOut";
 
 interface INavProps {}
 
@@ -26,6 +27,7 @@ const Nav: React.FunctionComponent<INavProps> = props => {
                 <Link href="/Me">
                   <a>Account</a>
                 </Link>
+                <SignOut />
               </>
             )}
             {!me && (
