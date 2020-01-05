@@ -127,7 +127,7 @@ export default class SignInUser extends React.Component<
           fetchPolicy: "network-only"
         })
         .then(dat => {
-          console.log(dat.data);
+          // console.log(dat.data);
         });
     }, 1000);
   };
