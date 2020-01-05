@@ -87,7 +87,7 @@ export default class ResetUserPassword extends React.Component<
                   ></input>
                 </label>
 
-                <button type="submit">Reset password!</button>
+                <button type="submit">Reset password!x</button>
               </fieldset>
             </Form>
           );
