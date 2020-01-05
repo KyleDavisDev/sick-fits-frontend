@@ -17,6 +17,8 @@ const RESET_USER_PASSWORD_MUTATION = gql`
       password: $password
       confirmPassword: $confirmPassword
     ) {
+      email
+      id
       name
     }
   }
@@ -45,7 +47,11 @@ export default class ResetUserPassword extends React.Component<
 
   public render() {
     return (
-      <Mutation mutation={RESET_USER_PASSWORD_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={RESET_USER_PASSWORD_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
         {(resetPassword, { error, loading, called }) => {
           return (
             <Form
@@ -59,7 +65,7 @@ export default class ResetUserPassword extends React.Component<
                 {!loading && !error && called && (
                   <p>Success! Check your email for an update link</p>
                 )}
-                <h2>Request Password Reset</h2>
+                <h2>Reset your password</h2>
 
                 <label htmlFor="password">
                   Password
@@ -81,7 +87,7 @@ export default class ResetUserPassword extends React.Component<
                   ></input>
                 </label>
 
-                <button type="submit">Request</button>
+                <button type="submit">Reset password!</button>
               </fieldset>
             </Form>
           );
@@ -106,7 +112,6 @@ export default class ResetUserPassword extends React.Component<
     await resetPassword();
 
     this.setState({
-      email: "",
       password: "",
       confirmPassword: ""
     });
