@@ -7,11 +7,9 @@ import ApolloClient from "apollo-client";
 import { CURRENT_USER_QUERY } from "../User/User";
 
 const REQUEST_RESET_QUERY = gql`
-  query REQUEST_RESET_QUERY($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      id
-      email
-      name
+  query REQUEST_RESET_QUERY($email: String!) {
+    requestReset(email: $email) {
+      message
     }
   }
 `;
@@ -21,6 +19,7 @@ export interface IRequestResetProps {}
 export interface IRequestResetState {
   email: string;
   loading: boolean;
+  success: boolean;
   error?: string;
   [name: string]: string | boolean;
 }
@@ -32,10 +31,12 @@ export default class RequestReset extends React.Component<
   state = {
     email: "test@email.com",
     loading: false,
+    success: false,
     error: ""
   };
 
   public render() {
+    const { loading, error, success } = this.state;
     return (
       <ApolloConsumer>
         {client => {
@@ -51,6 +52,9 @@ export default class RequestReset extends React.Component<
                 aria-busy={this.state.loading}
               >
                 <ErrorMessage error={this.state.error} />
+                {!loading && !error && success && (
+                  <p>Success! Check your email for an update link</p>
+                )}
                 <h2>Request Password Reset</h2>
                 <label htmlFor="email">
                   Email
@@ -94,8 +98,8 @@ export default class RequestReset extends React.Component<
         this.setState({
           loading,
           email: "",
-          password: "",
-          error: null
+          error: null,
+          success: true
         });
       })
       .catch(err => {
