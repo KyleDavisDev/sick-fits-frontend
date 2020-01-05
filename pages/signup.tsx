@@ -7,7 +7,13 @@ export interface ISignUpProps {}
 export default class SignUp extends React.Component<ISignUpProps> {
   public render() {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around"
+        }}
+      >
         <CreateUser />
         <br />
         <SignInUser />
