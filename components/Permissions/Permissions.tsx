@@ -50,7 +50,7 @@ const Permissions: React.FunctionComponent<IPermissionsProps> = props => {
               </thead>
               <tbody>
                 {data.users.map(user => {
-                  return <User user={user} key={user.id} />;
+                  return <UserPermissions user={user} key={user.id} />;
                 })}
               </tbody>
             </StyledTable>
@@ -61,9 +61,22 @@ const Permissions: React.FunctionComponent<IPermissionsProps> = props => {
   );
 };
 
-class User extends React.Component<any> {
+export interface IUserPermissionsProps {
+  user: {
+    name: string;
+    email: string;
+    id: string;
+    permissions: string[];
+  };
+}
+
+class UserPermissions extends React.Component<IUserPermissionsProps> {
+  state = {
+    user: { ...this.props.user }
+  };
   render() {
-    const { user } = this.props;
+    const { user } = this.state;
+
     return (
       <tr>
         <td>{user.name}</td>
@@ -72,7 +85,12 @@ class User extends React.Component<any> {
           return (
             <td key={`${user.id}-permission-${permission}-td`}>
               <label htmlFor={`${user.id}-permission-${permission}`}>
-                <input type="checkbox" checked={false}></input>
+                <input
+                  type="checkbox"
+                  checked={user.permissions.includes(permission)}
+                  value={permission}
+                  onChange={this.onCheckBoxChange}
+                ></input>
               </label>
             </td>
           );
@@ -83,6 +101,23 @@ class User extends React.Component<any> {
       </tr>
     );
   }
+
+  private onCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checkbox = event.target;
+
+    // get a copy of current permissions for us to mutate
+    let permissions = [...this.state.user.permissions];
+
+    // make the change
+    if (checkbox.checked) {
+      permissions.push(checkbox.value);
+    } else {
+      permissions = permissions.filter(permis => permis !== checkbox.value);
+    }
+
+    //update state
+    this.setState({ user: { ...this.state.user, permissions } });
+  };
 }
 
 export default Permissions;
