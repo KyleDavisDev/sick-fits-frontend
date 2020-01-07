@@ -35,14 +35,14 @@ export default class DeleteItem extends React.Component<
         variables={{ id: this.props.id }}
         update={this.update}
       >
-        {(deleteItem, payload) => {
-          if (payload.error)
-            return <ErrorMessage error={payload.error}></ErrorMessage>;
+        {(deleteItem, { error }) => {
           return (
             <button
               onClick={() => {
                 if (confirm("Are you sure you want to delete this item?")) {
-                  deleteItem();
+                  deleteItem().catch(err => {
+                    alert(err.message);
+                  });
                 }
               }}
             >
@@ -55,14 +55,19 @@ export default class DeleteItem extends React.Component<
   }
 
   public update = (cache, payload) => {
-    // Will manually update cache on client so matches server
-    // 1. Read the cache for the items we want
-    const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
-    // 2. Filter deleted item out of the page
-    data.items = data.items.filter(
-      item => item.id !== payload.data.deleteItem.id
-    );
-    // 3. Put the items back!
-    cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
+    if (cache.data.data.ROOT_QUERY) {
+      // manually update the cache on the client, so it matches the server
+      // 1. Read the cache for the items we want
+      const data = cache.readQuery({
+        query: ALL_ITEMS_QUERY
+      });
+      console.log(data, payload);
+      // 2. Filter the deleted itemout of the page
+      data.items = data.items.filter(
+        item => item.id !== payload.data.deleteItem.id
+      );
+      // 3. Put the items back!
+      cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
+    }
   };
 }
