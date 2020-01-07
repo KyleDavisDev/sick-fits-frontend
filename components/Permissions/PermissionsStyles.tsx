@@ -11,14 +11,18 @@ export const StyledTable = styled.table`
   th {
     border-bottom: 1px solid ${props => props.theme.smoke};
     border-right: 1px solid ${props => props.theme.smoke};
-    padding: 10px 5px;
     position: relative;
+    padding: 5px;
     &:last-child {
       border-right: none;
       width: 150px;
       button {
         width: 100%;
       }
+    }
+    label {
+      padding: 10px 5px;
+      display: block;
     }
   }
   tr {
