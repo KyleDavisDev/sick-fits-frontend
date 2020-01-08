@@ -4,11 +4,9 @@ import Button from "../Button/Button";
 
 export interface ICartProps {}
 
-export const Cart: React.FunctionComponent<ICartProps> = (
-  props: ICartProps
-) => {
+const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
   return (
-    <StyledDiv>
+    <StyledDiv open={false}>
       <header>
         <StyledCloseButton title={"close"}>&times;</StyledCloseButton>
         <StyledHeader>Your Cart</StyledHeader>
@@ -22,3 +20,5 @@ export const Cart: React.FunctionComponent<ICartProps> = (
     </StyledDiv>
   );
 };
+
+export default Cart;
