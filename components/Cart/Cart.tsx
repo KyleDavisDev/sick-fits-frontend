@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyledDiv, StyledHeader, StyledCloseButton } from "./CartStyles";
+import Button from "../Button/Button";
 
 export interface ICartProps {}
 
@@ -11,8 +12,13 @@ export const Cart: React.FunctionComponent<ICartProps> = (
       <header>
         <StyledCloseButton title={"close"}>&times;</StyledCloseButton>
         <StyledHeader>Your Cart</StyledHeader>
+        <p>You have __ items in your cart.</p>
       </header>
-      Cart
+
+      <footer>
+        <p>$10.00</p>
+        <Button onClick={() => {}}>Checkout</Button>
+      </footer>
     </StyledDiv>
   );
 };
