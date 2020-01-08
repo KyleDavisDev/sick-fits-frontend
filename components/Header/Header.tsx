@@ -5,6 +5,7 @@ import NProgress from "nprogress";
 
 import { Logo, StyledHeader } from "./HeaderStyles";
 import Nav from "../Nav/Nav";
+import Cart from "../Cart/Cart";
 
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
@@ -32,7 +33,9 @@ const Header: React.FunctionComponent<IHeaderProps> = props => {
       <div className="sub-bar">
         <p>Search here</p>
       </div>
-      <div>Cart</div>
+      <div>
+        <Cart></Cart>>
+      </div>
     </StyledHeader>
   );
 };
