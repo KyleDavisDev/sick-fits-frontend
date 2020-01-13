@@ -4,6 +4,7 @@ import Title from "./components/Title/Title";
 import PriceTag from "./components/PriceTag/PriceTag";
 import { StyledContainer } from "./ItemStyles";
 import DeleteItem from "../../../DeleteItem/DeleteItem";
+import AddToCart from "../../../AddToCart/AddToCart";
 
 interface IItemProp {
   item: {
@@ -30,7 +31,7 @@ class Item extends React.Component<IItemProp, {}> {
           <Link href={{ pathname: "item/edit", query: { id: item.id } }}>
             <a>Edit</a>
           </Link>
-          <button>Add to cart</button>
+          <AddToCart id={item.id} />
           <DeleteItem id={this.props.item.id} />
         </div>
       </StyledContainer>
