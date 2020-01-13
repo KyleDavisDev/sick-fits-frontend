@@ -42,6 +42,7 @@ export interface ThemeInterface {
   black?: string;
   red?: string;
   smoke?: string;
+  lightBlue?: string;
   boxShadow?: string;
 }
 
@@ -56,6 +57,7 @@ enum colors {
   smoke = "#EDEDED",
   black = "#393939",
   red = "#FF0000",
+  lightBlue = "#ADD8E6",
   boxShadow = "0 12px 24px 0 rgba(0, 0, 0, 0.09)"
 }
 
@@ -83,6 +85,7 @@ export const theme: ThemeInterface = {
   lightGrey: colors.lightGrey,
   smoke: colors.smoke,
   red: colors.red,
+  lightBlue: colors.lightBlue,
   maxPageWidth: scale.maxPageWidth,
   boxShadow: colors.boxShadow
 };
