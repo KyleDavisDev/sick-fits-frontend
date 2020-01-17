@@ -25,8 +25,12 @@ class AddToCart extends React.Component<IAddToCartProps> {
         variables={{ id }}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {addToCart => {
-          return <StyledButton onClick={addToCart}>Add to Cart</StyledButton>;
+        {(addToCart, { error, loading }) => {
+          return (
+            <StyledButton disabled={loading} onClick={addToCart}>
+              Add{loading ? "ing" : ""} to Cart{loading ? "!" : ""}
+            </StyledButton>
+          );
         }}
       </Mutation>
     );
