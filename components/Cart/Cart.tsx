@@ -5,6 +5,7 @@ import { StyledDiv, StyledHeader, StyledCloseButton } from "./CartStyles";
 import Button from "../Button/Button";
 import User from "../User/User";
 import CartItem from "../CartItem/CartItem";
+import formatMoney from "../../lib/formatMoney";
 
 export const LOCAL_STATE_QUERY = gql`
   query {
@@ -58,14 +59,24 @@ const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
                         <ul>
                           {me.cart.items.map(cartItem => {
                             return (
-                              <CartItem key={cartItem.id}>
+                              <CartItem key={cartItem.id} cartItem={cartItem}>
                                 {cartItem.id}
                               </CartItem>
                             );
                           })}
                         </ul>
                         <footer>
-                          <p>$10.00</p>
+                          <p>
+                            {formatMoney(
+                              me.cart.items.reduce((tally, cartItem) => {
+                                if (!cartItem.item) return tally;
+                                return (
+                                  tally +
+                                  cartItem.quantity * cartItem.item.price
+                                );
+                              }, 0)
+                            )}
+                          </p>
                           <Button onClick={() => {}}>Checkout</Button>
                         </footer>
                       </StyledDiv>
