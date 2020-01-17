@@ -3,6 +3,8 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { StyledDiv, StyledHeader, StyledCloseButton } from "./CartStyles";
 import Button from "../Button/Button";
+import User from "../User/User";
+import CartItem from "../CartItem/CartItem";
 
 export const LOCAL_STATE_QUERY = gql`
   query {
@@ -20,32 +22,62 @@ export interface ICartProps {}
 
 const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
   return (
-    <Mutation mutation={TOGGLE_CART_MUTATION}>
-      {toggleCart => {
+    <User>
+      {({ data: { me } }) => {
+        if (!me) return null;
         return (
-          <Query query={LOCAL_STATE_QUERY}>
-            {({ data }) => {
+          <Mutation mutation={TOGGLE_CART_MUTATION}>
+            {toggleCart => {
               return (
-                <StyledDiv open={data.cartOpen}>
-                  <header>
-                    <StyledCloseButton title={"close"} onClick={toggleCart}>
-                      &times;
-                    </StyledCloseButton>
-                    <StyledHeader>Your Cart</StyledHeader>
-                    <p>You have __ items in your cart.</p>
-                  </header>
-
-                  <footer>
-                    <p>$10.00</p>
-                    <Button onClick={() => {}}>Checkout</Button>
-                  </footer>
-                </StyledDiv>
+                <Query query={LOCAL_STATE_QUERY}>
+                  {({ data }) => {
+                    return (
+                      <StyledDiv open={data.cartOpen}>
+                        <header>
+                          <StyledCloseButton
+                            title={"close"}
+                            onClick={toggleCart}
+                          >
+                            &times;
+                          </StyledCloseButton>
+                          <StyledHeader>{me.name} Cart</StyledHeader>
+                          <p>
+                            You have{" "}
+                            {me.cart && me.cart.items
+                              ? me.cart.items.length
+                              : 0}{" "}
+                            item
+                            {me.cart &&
+                            me.cart.items &&
+                            me.cart.items.length > 1
+                              ? "s"
+                              : ""}{" "}
+                            in your cart.
+                          </p>
+                        </header>
+                        <ul>
+                          {me.cart.items.map(cartItem => {
+                            return (
+                              <CartItem key={cartItem.id}>
+                                {cartItem.id}
+                              </CartItem>
+                            );
+                          })}
+                        </ul>
+                        <footer>
+                          <p>$10.00</p>
+                          <Button onClick={() => {}}>Checkout</Button>
+                        </footer>
+                      </StyledDiv>
+                    );
+                  }}
+                </Query>
               );
             }}
-          </Query>
+          </Mutation>
         );
       }}
-    </Mutation>
+    </User>
   );
 };
 
