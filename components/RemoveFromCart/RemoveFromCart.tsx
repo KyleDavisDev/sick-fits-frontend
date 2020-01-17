@@ -16,23 +16,49 @@ interface IRemoveFromCartProps {
   id: string;
 }
 
-const RemoveFromCart: React.FunctionComponent<IRemoveFromCartProps> = props => {
-  return (
-    <Mutation
-      mutation={REMOVE_FROM_CART_MUTATION}
-      variables={{ id: props.id }}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {(removeFromCart, { loading, error }) => {
-        if (error) console.log(error.msg);
-        return (
-          <StyledButton disabled={loading} onClick={removeFromCart}>
-            &times;
-          </StyledButton>
-        );
-      }}
-    </Mutation>
-  );
-};
+class RemoveFromCart extends React.PureComponent<IRemoveFromCartProps> {
+  render() {
+    return (
+      <Mutation
+        mutation={REMOVE_FROM_CART_MUTATION}
+        variables={{ id: this.props.id }}
+        // refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        update={this.update}
+        optimisticResponse={{
+          __typename: "Mutation",
+          removeFromCart: {
+            __typename: "CartItem",
+            id: this.props.id
+          }
+        }}
+      >
+        {(removeFromCart, { loading, error }) => {
+          if (error) console.log(error.msg);
+          return (
+            <StyledButton disabled={loading} onClick={removeFromCart}>
+              &times;
+            </StyledButton>
+          );
+        }}
+      </Mutation>
+    );
+  }
+
+  // This will be called as soon as we get response from server
+  private update = (cache, payload) => {
+    console.log("running remove from cart");
+    // 1. Read the cache
+    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+
+    // 2. Remove item from the cart
+    const cartItemId = payload.data.removeFromCart.id;
+    data.me.cart.items = data.me.cart.items.filter(
+      cartItem => cartItem.id !== cartItemId
+    );
+
+    // 3. Write it back to the cache
+    cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+  };
+}
 
 export default RemoveFromCart;
