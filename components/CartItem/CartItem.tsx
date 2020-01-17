@@ -2,6 +2,7 @@ import * as React from "react";
 
 import formatMoney from "../../lib/formatMoney";
 import { StyledLi } from "./CartItemStyles";
+import RemoveFromCart from "../RemoveFromCart/RemoveFromCart";
 
 export interface ICartItemProps {
   cartItem: {
@@ -37,6 +38,7 @@ const CartItem: React.SFC<ICartItemProps> = (props: ICartItemProps) => {
           </em>
         </p>
       </div>
+      <RemoveFromCart id={props.cartItem.id}></RemoveFromCart>
     </StyledLi>
   );
 };
