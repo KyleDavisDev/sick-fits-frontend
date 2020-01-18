@@ -14,6 +14,8 @@ export const DELETE_ITEM_MUTATION = gql`
 
 export interface IDeleteItemProps {
   id: string;
+  skip: number;
+  first: number;
 }
 
 export interface IDeleteItemState {}
@@ -35,7 +37,7 @@ export default class DeleteItem extends React.Component<
         variables={{ id: this.props.id }}
         update={this.update}
       >
-        {(deleteItem, { error }) => {
+        {deleteItem => {
           return (
             <button
               onClick={() => {
@@ -59,15 +61,22 @@ export default class DeleteItem extends React.Component<
       // manually update the cache on the client, so it matches the server
       // 1. Read the cache for the items we want
       const data = cache.readQuery({
-        query: ALL_ITEMS_QUERY
+        query: ALL_ITEMS_QUERY,
+        variables: { skip: this.props.skip, first: this.props.first }
       });
-      console.log(data, payload);
+      console.log("befpre", data);
+      console.log(payload);
       // 2. Filter the deleted itemout of the page
       data.items = data.items.filter(
         item => item.id !== payload.data.deleteItem.id
       );
+      console.log("after", data);
       // 3. Put the items back!
-      cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
+      cache.writeQuery({
+        query: ALL_ITEMS_QUERY,
+        data,
+        variables: { skip: this.props.skip, first: this.props.first }
+      });
     }
   };
 }
