@@ -1,5 +1,4 @@
 import * as React from "react";
-import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
