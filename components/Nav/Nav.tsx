@@ -5,6 +5,7 @@ import { NavStyles } from "./NavStyles";
 import User from "../User/User";
 import SignOut from "../SignOut/SignOut";
 import { TOGGLE_CART_MUTATION } from "../Cart/Cart";
+import CartCount from "../CartCount/CartCount";
 
 interface INavProps {}
 
@@ -32,7 +33,17 @@ const Nav: React.FunctionComponent<INavProps> = props => {
                 <SignOut />
                 <Mutation mutation={TOGGLE_CART_MUTATION}>
                   {toggle => {
-                    return <button onClick={toggle}>My Cart</button>;
+                    return (
+                      <button onClick={toggle}>
+                        My Cart
+                        <CartCount
+                          count={me.cart.items.reduce(
+                            (acc, item) => acc + item.quantity,
+                            0
+                          )}
+                        />
+                      </button>
+                    );
                   }}
                 </Mutation>
               </>
