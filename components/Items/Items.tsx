@@ -42,7 +42,12 @@ export default class Items extends React.Component<IItemsProps> {
             return (
               <ItemsList>
                 {payload.data.items.map(item => (
-                  <Item item={item} key={item.id} />
+                  <Item
+                    item={item}
+                    key={item.id}
+                    first={perPage}
+                    skip={this.props.page * perPage - perPage || 0}
+                  />
                 ))}
               </ItemsList>
             );

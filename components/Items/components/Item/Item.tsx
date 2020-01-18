@@ -7,6 +7,8 @@ import DeleteItem from "../../../DeleteItem/DeleteItem";
 import AddToCart from "../../../AddToCart/AddToCart";
 
 interface IItemProp {
+  skip: number;
+  first: number;
   item: {
     id: string;
     title: string;
@@ -32,7 +34,11 @@ class Item extends React.Component<IItemProp, {}> {
             <a>Edit</a>
           </Link>
           <AddToCart id={item.id} />
-          <DeleteItem id={this.props.item.id} />
+          <DeleteItem
+            id={this.props.item.id}
+            skip={this.props.skip}
+            first={this.props.first}
+          />
         </div>
       </StyledContainer>
     );

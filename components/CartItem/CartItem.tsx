@@ -19,6 +19,7 @@ export interface ICartItemProps {
 }
 
 const CartItem: React.SFC<ICartItemProps> = (props: ICartItemProps) => {
+  if (!props.cartItem.item) return null;
   return (
     <StyledLi>
       <img
