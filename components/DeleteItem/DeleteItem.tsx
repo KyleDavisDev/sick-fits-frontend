@@ -64,13 +64,12 @@ export default class DeleteItem extends React.Component<
         query: ALL_ITEMS_QUERY,
         variables: { skip: this.props.skip, first: this.props.first }
       });
-      console.log("befpre", data);
-      console.log(payload);
+
       // 2. Filter the deleted itemout of the page
       data.items = data.items.filter(
         item => item.id !== payload.data.deleteItem.id
       );
-      console.log("after", data);
+
       // 3. Put the items back!
       cache.writeQuery({
         query: ALL_ITEMS_QUERY,
