@@ -10,12 +10,56 @@ import {
   StyledSearchStyles
 } from "./SearchStyles";
 
-class AutoComplete extends React.Component {
+export const SEARCH_ITEMS_QUERY = gql`
+  query SEARCH_ITEMS_QUERY($searchTerm: String!) {
+    items(
+      where: {
+        OR: [
+          { title_contains: $searchTerm }
+          { description_contains: $searchTerm }
+        ]
+      }
+    ) {
+      id
+      image
+      title
+    }
+  }
+`;
+
+interface IAutoCompleteProps {}
+
+interface IAutoCompleteState {
+  items: [{ id: string; image: string; title: string }?];
+  loading: boolean;
+}
+
+class AutoComplete extends React.Component<
+  IAutoCompleteProps,
+  IAutoCompleteState
+> {
+  state: IAutoCompleteState = {
+    loading: false,
+    items: []
+  };
+
   render() {
     return (
       <StyledSearchStyles>
         <div>
-          <input type="search" />
+          <ApolloConsumer>
+            {client => {
+              return (
+                <input
+                  type="search"
+                  onChange={e => {
+                    e.persist();
+                    this.onChange(e, client);
+                  }}
+                />
+              );
+            }}
+          </ApolloConsumer>
           <StyledDropDown>
             <p>Items will go here...</p>
           </StyledDropDown>
@@ -23,6 +67,28 @@ class AutoComplete extends React.Component {
       </StyledSearchStyles>
     );
   }
+
+  private onChange = debounce(
+    async (e: React.ChangeEvent<HTMLInputElement>, client: any) => {
+      //set loading on
+      this.setState({ loading: true });
+
+      // manually query for results
+      const res = await client.query({
+        query: SEARCH_ITEMS_QUERY,
+        variables: { searchTerm: e.target.value }
+      });
+
+      // turn loading off and assign data
+      this.setState({
+        loading: false,
+        items: res.data && res.data.items.length > 0 ? res.data.items : []
+      });
+
+      console.log(res);
+    },
+    350
+  );
 }
 
 export interface ISearchProps {}
