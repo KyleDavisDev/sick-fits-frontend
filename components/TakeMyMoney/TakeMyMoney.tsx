@@ -78,7 +78,7 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
     );
 
     Router.push({
-      pathname: "/order/view/",
+      pathname: "/order/view",
       query: { id: res.data.createOrder.id }
     });
   };
