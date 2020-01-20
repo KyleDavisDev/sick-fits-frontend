@@ -15,19 +15,19 @@ const Nav: React.FunctionComponent<INavProps> = props => {
       {({ data: { me } }) => {
         return (
           <NavStyles>
-            <Link href="/Shop">
+            <Link href="/shop">
               <a>Shop</a>
             </Link>
 
             {me && (
               <>
-                <Link href="/Sell">
+                <Link href="/sell">
                   <a>Sell</a>
                 </Link>
-                <Link href="/Orders">
+                <Link href="/orders">
                   <a>Orders</a>
                 </Link>
-                <Link href="/Me">
+                <Link href="/me">
                   <a>Account</a>
                 </Link>
                 <SignOut />
