@@ -1,5 +1,5 @@
 import * as React from "react";
-import Downshift from "downshift";
+import Downshift, { resetIdCounter } from "downshift";
 import Router from "next/router";
 import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
@@ -27,6 +27,15 @@ export const SEARCH_ITEMS_QUERY = gql`
   }
 `;
 
+const routeToItem = item => {
+  Router.push({
+    pathname: "/item/view",
+    query: {
+      id: item.id
+    }
+  });
+};
+
 interface IAutoCompleteProps {}
 
 interface IAutoCompleteState {
@@ -44,33 +53,65 @@ class AutoComplete extends React.Component<
   };
 
   render() {
+    resetIdCounter();
     return (
       <StyledSearchStyles>
-        <div>
-          <ApolloConsumer>
-            {client => {
-              return (
-                <input
-                  type="search"
-                  onChange={e => {
-                    e.persist();
-                    this.onChange(e, client);
+        <Downshift
+          itemToString={item => (item === null ? "" : item.title)}
+          onChange={routeToItem}
+        >
+          {({
+            getInputProps,
+            getItemProps,
+            isOpen,
+            inputValue,
+            highlightedIndex
+          }) => {
+            return (
+              <div>
+                <ApolloConsumer>
+                  {client => {
+                    return (
+                      <input
+                        {...getInputProps({
+                          id: "seach",
+                          className: this.state.loading ? "loading" : "",
+                          type: "search",
+                          placeholder: "Search For An Item...",
+                          onChange: e => {
+                            e.persist();
+                            this.onChange(e, client);
+                          }
+                        })}
+                      />
+                    );
                   }}
-                />
-              );
-            }}
-          </ApolloConsumer>
-          <StyledDropDown>
-            {this.state.items.map(item => {
-              return (
-                <StyledDropDownItem key={item.id}>
-                  <img width="50" src={item.image} alt={item.title} />
-                  {item.title}
-                </StyledDropDownItem>
-              );
-            })}
-          </StyledDropDown>
-        </div>
+                </ApolloConsumer>
+                {isOpen && (
+                  <StyledDropDown>
+                    {this.state.items.map((item, ind) => {
+                      return (
+                        <StyledDropDownItem
+                          key={item.id}
+                          {...getItemProps({ item })}
+                          highlighted={ind === highlightedIndex}
+                        >
+                          <img width="50" src={item.image} alt={item.title} />
+                          {item.title}
+                        </StyledDropDownItem>
+                      );
+                    })}
+                    {!this.state.items.length && !this.state.loading && (
+                      <StyledDropDownItem>
+                        Nothing found for {inputValue}
+                      </StyledDropDownItem>
+                    )}
+                  </StyledDropDown>
+                )}
+              </div>
+            );
+          }}
+        </Downshift>
       </StyledSearchStyles>
     );
   }
@@ -91,8 +132,6 @@ class AutoComplete extends React.Component<
         loading: false,
         items: res.data && res.data.items.length > 0 ? res.data.items : []
       });
-
-      console.log(res);
     },
     350
   );
