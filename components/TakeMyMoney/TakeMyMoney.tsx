@@ -1,5 +1,5 @@
 import * as React from "react";
-import StripeCheckout from "react-stripe-checkout";
+import StripeCheckout, { Token } from "react-stripe-checkout";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
 import NProgress from "nprogress";
@@ -21,11 +21,19 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
     return (
       <User>
         {({ data: { me } }) => {
+          const totalItemCount = totalItems(me.cart);
           return (
             <StripeCheckout
               amount={calcTotalPrice(me.cart.items)}
               name="Sick Fits"
-              description={`Order of ${totalItems(me.cart)}`}
+              description={`Order of ${totalItemCount} item${
+                totalItemCount > 1 ? "s" : ""
+              }! `}
+              image={me.cart.items[0] && me.cart.items[0].item.image}
+              stripeKey="pk_test_GaDtTfxBhDnWRXT8nsE4xtNQ00Y9ZaOyUT"
+              currency="USD"
+              email={me.email}
+              token={token => this.onToken(token)}
             >
               {this.props.children}
             </StripeCheckout>
@@ -34,6 +42,10 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
       </User>
     );
   }
+
+  private onToken = (token: Token) => {
+    console.log(token);
+  };
 }
 
 export default TakeMyMoney;
