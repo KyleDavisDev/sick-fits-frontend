@@ -32,7 +32,8 @@ function createClient({ headers }) {
 
             return data;
           }
-        }
+        },
+        Query: {}
       },
       defaults: { cartOpen: false }
     }
