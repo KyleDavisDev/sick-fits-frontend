@@ -48,8 +48,49 @@ export default class Order extends React.Component<IOrderProps, IOrderState> {
         {({ data, error, loading }) => {
           if (error) return <ErrorMessage error />;
           if (loading) return <p>Loading...</p>;
-          console.log(data);
-          return <p>yo</p>;
+
+          const order = data.order;
+          return (
+            <StyledDiv>
+              <Head>
+                <title>Sick Fits order {order.id}</title>
+              </Head>
+              <p>
+                <span>Order ID:</span>
+                <span>{order.id}</span>
+              </p>
+              <p>
+                <span>Total:</span>
+                <span>{formatMoney(order.total)}</span>
+              </p>
+              <p>
+                <span>Date:</span>
+                <span>{moment(order.created * 1000).format("LLL")}</span>
+              </p>
+              <p>
+                <span>Item Count:</span>
+                <span>{order.items.length}</span>
+              </p>
+              <div className="items">
+                {order.items.map(item => {
+                  return (
+                    <div className="order-item" key={item.id}>
+                      <img src={item.image} alt={item.description} />
+                      <div className="item-details">
+                        <h2>{item.title}</h2>
+                        <p>Qty: {item.quantity}</p>
+                        <p>Each: {formatMoney(item.price)}</p>
+                        <p>
+                          Subtotal: {formatMoney(item.price * item.quantity)}
+                        </p>
+                        <p>{item.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </StyledDiv>
+          );
         }}
       </Query>
     );
