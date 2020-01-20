@@ -61,7 +61,14 @@ class AutoComplete extends React.Component<
             }}
           </ApolloConsumer>
           <StyledDropDown>
-            <p>Items will go here...</p>
+            {this.state.items.map(item => {
+              return (
+                <StyledDropDownItem key={item.id}>
+                  <img width="50" src={item.image} alt={item.title} />
+                  {item.title}
+                </StyledDropDownItem>
+              );
+            })}
           </StyledDropDown>
         </div>
       </StyledSearchStyles>
