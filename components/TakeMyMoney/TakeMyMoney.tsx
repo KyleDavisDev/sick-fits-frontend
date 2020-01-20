@@ -8,6 +8,20 @@ import calcTotalPrice from "../../lib/calcTotalPrice";
 import Error from "../ErrorMessage/ErrorMessage";
 import User, { CURRENT_USER_QUERY } from "../User/User";
 
+export const CREATE_ORDER_MUTATION = gql`
+  mutation CREATE_ORDER_MUTATION($token: String!) {
+    createOrder(token: $token) {
+      id
+      charge
+      total
+      items {
+        id
+        title
+      }
+    }
+  }
+`;
+
 interface ITakeMyMoneyProps {
   children: any;
 }
@@ -24,28 +38,44 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
           if (!me.cart || !me.cart.items.length) return <p>No items</p>;
           const totalItemCount = totalItems(me.cart);
           return (
-            <StripeCheckout
-              amount={calcTotalPrice(me.cart.items)}
-              name="Sick Fits"
-              description={`Order of ${totalItemCount} item${
-                totalItemCount > 1 ? "s" : ""
-              }! `}
-              image={me.cart.items[0] && me.cart.items[0].item.image}
-              stripeKey="pk_test_GaDtTfxBhDnWRXT8nsE4xtNQ00Y9ZaOyUT"
-              currency="USD"
-              email={me.email}
-              token={token => this.onToken(token)}
+            <Mutation
+              mutation={CREATE_ORDER_MUTATION}
+              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
             >
-              {this.props.children}
-            </StripeCheckout>
+              {createOrder => {
+                return (
+                  <StripeCheckout
+                    amount={calcTotalPrice(me.cart.items)}
+                    name="Sick Fits"
+                    description={`Order of ${totalItemCount} item${
+                      totalItemCount > 1 ? "s" : ""
+                    }! `}
+                    image={me.cart.items[0] && me.cart.items[0].item.image}
+                    stripeKey="pk_test_GaDtTfxBhDnWRXT8nsE4xtNQ00Y9ZaOyUT"
+                    currency="USD"
+                    email={me.email}
+                    token={token => this.onToken(token, createOrder)}
+                  >
+                    {this.props.children}
+                  </StripeCheckout>
+                );
+              }}
+            </Mutation>
           );
         }}
       </User>
     );
   }
 
-  private onToken = (token: Token) => {
-    console.log(token);
+  private onToken = async (token: Token, createOrder: any) => {
+    //manually call mutation
+    const res = await createOrder({ variables: { token: token.id } }).catch(
+      err => {
+        alert(err.message);
+      }
+    );
+
+    console.log(res);
   };
 }
 
