@@ -68,6 +68,8 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
   }
 
   private onToken = async (token: Token, createOrder: any) => {
+    NProgress.start();
+
     //manually call mutation
     const res = await createOrder({ variables: { token: token.id } }).catch(
       err => {
@@ -75,7 +77,10 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
       }
     );
 
-    console.log(res);
+    Router.push({
+      pathname: "/order/view/",
+      query: { id: res.data.createOrder.id }
+    });
   };
 }
 
