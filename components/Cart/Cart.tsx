@@ -6,6 +6,7 @@ import { StyledDiv, StyledHeader, StyledCloseButton } from "./CartStyles";
 import Button from "../Button/Button";
 import User from "../User/User";
 import CartItem from "../CartItem/CartItem";
+import TakeMyMoney from "../TakeMyMoney/TakeMyMoney";
 import formatMoney from "../../lib/formatMoney";
 import calcTotalPrice from "../../lib/calcTotalPrice";
 
@@ -70,7 +71,9 @@ const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
                   me.cart.items &&
                   formatMoney(calcTotalPrice(me.cart.items))}
               </p>
-              <Button onClick={() => {}}>Checkout</Button>
+              <TakeMyMoney>
+                <Button onClick={() => {}}>Checkout</Button>
+              </TakeMyMoney>
             </footer>
           </StyledDiv>
         );
