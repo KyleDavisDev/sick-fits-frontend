@@ -53,22 +53,26 @@ const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
               </p>
             </header>
             <ul>
-              {me.cart.items.map(cartItem => {
-                return (
-                  <CartItem key={cartItem.id} cartItem={cartItem}>
-                    {cartItem.id}
-                  </CartItem>
-                );
-              })}
+              {me.cart &&
+                me.cart.items &&
+                me.cart.items.map(cartItem => {
+                  return (
+                    <CartItem key={cartItem.id} cartItem={cartItem}>
+                      {cartItem.id}
+                    </CartItem>
+                  );
+                })}
             </ul>
             <footer>
               <p>
-                {formatMoney(
-                  me.cart.items.reduce((tally, cartItem) => {
-                    if (!cartItem.item) return tally;
-                    return tally + cartItem.quantity * cartItem.item.price;
-                  }, 0)
-                )}
+                {me.cart &&
+                  me.cart.items &&
+                  formatMoney(
+                    me.cart.items.reduce((tally, cartItem) => {
+                      if (!cartItem.item) return tally;
+                      return tally + cartItem.quantity * cartItem.item.price;
+                    }, 0)
+                  )}
               </p>
               <Button onClick={() => {}}>Checkout</Button>
             </footer>
