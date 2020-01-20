@@ -37,10 +37,14 @@ const Nav: React.FunctionComponent<INavProps> = props => {
                       <button onClick={toggle}>
                         My Cart
                         <CartCount
-                          count={me.cart.items.reduce(
-                            (acc, item) => acc + item.quantity,
-                            0
-                          )}
+                          count={
+                            me.cart && me.cart.items
+                              ? me.cart.items.reduce(
+                                  (acc, item) => acc + item.quantity,
+                                  0
+                                )
+                              : 0
+                          }
                         />
                       </button>
                     );
