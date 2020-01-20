@@ -1,4 +1,5 @@
 import * as React from "react";
+import Orders from "../components/Orders/Orders";
 
 export interface IOrdersPageProps {}
 
@@ -15,6 +16,6 @@ export default class OrdersPage extends React.Component<
   }
 
   public render() {
-    return <div>yo</div>;
+    return <Orders />;
   }
 }
