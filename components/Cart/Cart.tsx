@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import User from "../User/User";
 import CartItem from "../CartItem/CartItem";
 import formatMoney from "../../lib/formatMoney";
+import calcTotalPrice from "../../lib/calcTotalPrice";
 
 export const LOCAL_STATE_QUERY = gql`
   query {
@@ -67,12 +68,7 @@ const Cart: React.FunctionComponent<ICartProps> = (props: ICartProps) => {
               <p>
                 {me.cart &&
                   me.cart.items &&
-                  formatMoney(
-                    me.cart.items.reduce((tally, cartItem) => {
-                      if (!cartItem.item) return tally;
-                      return tally + cartItem.quantity * cartItem.item.price;
-                    }, 0)
-                  )}
+                  formatMoney(calcTotalPrice(me.cart.items))}
               </p>
               <Button onClick={() => {}}>Checkout</Button>
             </footer>
