@@ -41,14 +41,15 @@ export default class Items extends React.Component<IItemsProps> {
             if (payload.error) return <p>Error: {payload.error.message}</p>;
             return (
               <ItemsList>
-                {payload.data.items.map(item => (
-                  <Item
-                    item={item}
-                    key={item.id}
-                    first={perPage}
-                    skip={this.props.page * perPage - perPage || 0}
-                  />
-                ))}
+                {payload.data &&
+                  payload.data.items.map(item => (
+                    <Item
+                      item={item}
+                      key={item.id}
+                      first={perPage}
+                      skip={this.props.page * perPage - perPage || 0}
+                    />
+                  ))}
               </ItemsList>
             );
           }}
