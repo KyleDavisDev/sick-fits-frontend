@@ -21,6 +21,7 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
     return (
       <User>
         {({ data: { me } }) => {
+          if (!me.cart || !me.cart.items.length) return <p>No items</p>;
           const totalItemCount = totalItems(me.cart);
           return (
             <StripeCheckout
