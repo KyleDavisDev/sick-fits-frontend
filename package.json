@@ -38,6 +38,8 @@
     "waait": "^1.0.5"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.4",
+    "@types/jest": "^24.9.0",
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.13",
     "@types/react-dom": "^16.9.4",
@@ -48,19 +50,36 @@
     "graphql-tools": "^4.0.6",
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",
+    "ts-jest": "^24.3.0",
     "typescript": "^3.7.2"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/.next/",
       "<rootDir>/node_modules/"
     ],
     "transform": {
+      "^.+\\.tsx?$": "ts-jest",
       "\\.(gql|graphql)$": "jest-transform-graphql",
       ".*": "babel-jest",
       "^.+\\.js?$": "babel-jest"
-    }
+    },
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "warnOnly": true
+        }
+      }
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/setupEnzyme.ts"
   },
   "babel": {
     "env": {
