@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "../../theme/theme";
 
 export const StyledButton = styled.button`
   background: red;
@@ -16,3 +16,4 @@ export const StyledButton = styled.button`
     opacity: 0.5;
   }
 `;
+StyledButton.displayName = "StyledButton";
