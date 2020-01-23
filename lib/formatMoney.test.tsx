@@ -17,4 +17,12 @@ describe("formatMoney function", () => {
     expect(formatMoney(4545454511200)).toEqual("$45,454,545,112");
     expect(formatMoney(0)).toEqual("$0");
   });
+
+  it("renders whole dollars and cents correctly", () => {
+    expect(formatMoney(112)).toEqual("$1.12");
+    expect(formatMoney(999)).toEqual("$9.99");
+    expect(formatMoney(50048)).toEqual("$500.48");
+    expect(formatMoney(500489)).toEqual("$5,004.89");
+    expect(formatMoney(471154862014)).toEqual("$4,711,548,620.14");
+  });
 });
