@@ -33,4 +33,16 @@ describe("<Item />", () => {
     expect(img.props().src).toEqual(fakeItem.image);
     expect(img.props().alt).toEqual(fakeItem.title);
   });
+
+  it("renders out the buttons properly", () => {
+    const wrapper = shallow(
+      <Item skip={fakeSkip} first={fakeFirst} item={fakeItem} />
+    );
+    const buttonList = wrapper.find("div.buttonList");
+
+    expect(buttonList.children()).toHaveLength(3);
+    expect(buttonList.find("Link")).toHaveLength(1);
+    expect(buttonList.find("AddToCart").exists()).toBe(true);
+    expect(buttonList.find("DeleteItem").exists()).toBe(true);
+  });
 });
