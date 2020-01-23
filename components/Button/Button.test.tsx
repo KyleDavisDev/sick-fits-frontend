@@ -19,8 +19,5 @@ describe("<Button>", () => {
         .render()
         .text()
     ).toEqual("Text here");
-
-    // wrapper = enzyme.render(<Button onClick={() => {}}>Other text</Button>);
-    // expect(wrapper.find("button").text()).toEqual("Other text");
   });
 });
