@@ -2,7 +2,7 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Center, ItemsList } from "./ItemStyles";
-import Item from "./components/Item/Item";
+import Item from "../Item/Item";
 import Pagination from "../Pagination/Pagination";
 import { perPage } from "../../config";
 

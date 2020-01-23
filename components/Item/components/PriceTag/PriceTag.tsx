@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyledSpan } from "./PriceTagStyle";
-import formatMoney from "../../../../../../lib/formatMoney";
+import formatMoney from "../../../../lib/formatMoney";
 
 interface IPriceTagProps {
   children: number;

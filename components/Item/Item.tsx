@@ -3,8 +3,8 @@ import Link from "next/link";
 import Title from "./components/Title/Title";
 import PriceTag from "./components/PriceTag/PriceTag";
 import { StyledContainer } from "./ItemStyles";
-import DeleteItem from "../../../DeleteItem/DeleteItem";
-import AddToCart from "../../../AddToCart/AddToCart";
+import DeleteItem from "../DeleteItem/DeleteItem";
+import AddToCart from "../AddToCart/AddToCart";
 
 interface IItemProp {
   skip: number;

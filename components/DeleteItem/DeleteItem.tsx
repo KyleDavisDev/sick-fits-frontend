@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { ALL_ITEMS_QUERY } from "../Items/Items";
 
 export const DELETE_ITEM_MUTATION = gql`
@@ -37,12 +36,12 @@ export default class DeleteItem extends React.Component<
         variables={{ id: this.props.id }}
         update={this.update}
       >
-        {deleteItem => {
+        {(deleteItem: any) => {
           return (
             <button
               onClick={() => {
                 if (confirm("Are you sure you want to delete this item?")) {
-                  deleteItem().catch(err => {
+                  deleteItem().catch((err: any) => {
                     alert(err.message);
                   });
                 }
@@ -56,7 +55,7 @@ export default class DeleteItem extends React.Component<
     );
   }
 
-  public update = (cache, payload) => {
+  public update = (cache: any, payload: any) => {
     if (cache.data.data.ROOT_QUERY) {
       // manually update the cache on the client, so it matches the server
       // 1. Read the cache for the items we want
@@ -67,7 +66,7 @@ export default class DeleteItem extends React.Component<
 
       // 2. Filter the deleted itemout of the page
       data.items = data.items.filter(
-        item => item.id !== payload.data.deleteItem.id
+        (item: any) => item.id !== payload.data.deleteItem.id
       );
 
       // 3. Put the items back!
