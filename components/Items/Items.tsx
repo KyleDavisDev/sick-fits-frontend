@@ -33,7 +33,7 @@ export default class Items extends React.Component<IItemsProps> {
           query={ALL_ITEMS_QUERY}
           variables={{
             first: perPage,
-            skip: this.props.page * perPage - perPage || 0
+            skip: this.props.page ? this.props.page * perPage - perPage : 0
           }}
         >
           {payload => {
@@ -47,7 +47,11 @@ export default class Items extends React.Component<IItemsProps> {
                       item={item}
                       key={item.id}
                       first={perPage}
-                      skip={this.props.page * perPage - perPage || 0}
+                      skip={
+                        this.props.page
+                          ? this.props.page * perPage - perPage
+                          : 0
+                      }
                     />
                   ))}
               </ItemsList>
