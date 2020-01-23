@@ -22,11 +22,7 @@ interface IPaginationProps {
   page: number;
 }
 
-interface IPaginationState {
-  page: number;
-}
-
-const Pagination: React.StatelessComponent<IPaginationProps> = props => {
+const Pagination: React.FunctionComponent<IPaginationProps> = props => {
   return (
     <Query query={PAGINATION_QUERY}>
       {({ data, loading }) => {
