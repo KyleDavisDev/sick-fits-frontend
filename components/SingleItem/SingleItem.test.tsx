@@ -23,4 +23,13 @@ describe("<SingleItem />", () => {
     );
     expect(wrapper).toBeTruthy();
   });
+
+  it("renders loading text", () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <SingleItem id={item.id} />
+      </MockedProvider>
+    );
+    expect(wrapper.text()).toContain("Loading...");
+  });
 });
