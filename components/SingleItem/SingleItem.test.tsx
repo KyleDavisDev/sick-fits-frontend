@@ -32,4 +32,38 @@ describe("<SingleItem />", () => {
     );
     expect(wrapper.text()).toContain("Loading...");
   });
+
+  it("renders matches snapshot", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <SingleItem id={item.id} />
+      </MockedProvider>
+    );
+
+    await wait(); // wait til next tick
+    wrapper.update(); //update wrapper
+
+    // check snapshots
+    expect(wrapper.find("h2")).toMatchSnapshot();
+    expect(wrapper.find("img")).toMatchSnapshot();
+    expect(wrapper.find("p")).toMatchSnapshot();
+  });
+
+  it("renders item", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <SingleItem id={item.id} />
+      </MockedProvider>
+    );
+
+    await wait(); // wait til next tick
+    wrapper.update(); //update wrapper
+    const img = wrapper.find("img"); // grab image
+
+    // check values
+    expect(wrapper.find("h2").text()).toEqual(`Viewing ${item.title}`);
+    expect(img.props().src).toEqual(item.largeImage);
+    expect(img.props().alt).toEqual(item.title);
+    expect(wrapper.find("p").text()).toEqual(`${item.description}`);
+  });
 });
