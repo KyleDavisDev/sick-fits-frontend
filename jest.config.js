@@ -1,6 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: [require.resolve("./jest.setup.ts")],
-  snapshotSerializers: ["enzyme-to-json"],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
   roots: ["<rootDir>/components", "<rootDir>/lib"],
   testEnvironment: "node",
   transform: {
