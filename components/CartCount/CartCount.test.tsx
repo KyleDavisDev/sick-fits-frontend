@@ -15,4 +15,45 @@ describe("<CartCount />", () => {
     const wrapper = enzyme.mount(<CartCount count={fakeCount} />);
     expect(wrapper.text()).toEqual(`${fakeCount}`);
   });
+
+  it("updates w/ prop update", () => {
+    const wrapper = enzyme.shallow(<CartCount count={fakeCount} />);
+    expect(
+      wrapper
+        .find("CSSTransition")
+        .children()
+        .text()
+    ).toEqual(`${fakeCount}`);
+
+    // random number
+    let updatedCount = Math.random() * 100;
+    wrapper.setProps({ count: updatedCount });
+    wrapper.simulate("transitionEnd");
+    expect(
+      wrapper
+        .find("CSSTransition")
+        .children()
+        .text()
+    ).toEqual(`${updatedCount}`);
+
+    updatedCount = Math.random() * 100;
+    wrapper.setProps({ count: updatedCount });
+    wrapper.simulate("transitionEnd");
+    expect(
+      wrapper
+        .find("CSSTransition")
+        .children()
+        .text()
+    ).toEqual(`${updatedCount}`);
+
+    updatedCount = Math.random() * 100;
+    wrapper.setProps({ count: updatedCount });
+    wrapper.simulate("transitionEnd");
+    expect(
+      wrapper
+        .find("CSSTransition")
+        .children()
+        .text()
+    ).toEqual(`${updatedCount}`);
+  });
 });
