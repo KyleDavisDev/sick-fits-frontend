@@ -5,6 +5,7 @@ import wait from "waait";
 import SingleItem, { SINGLE_ITEM_QUERY } from "./SingleItems";
 import { MockedProvider } from "react-apollo/test-utils";
 import { fakeItem } from "../../lib/testUtils";
+import { GraphQLError } from "graphql";
 
 describe("<SingleItem />", () => {
   const item = fakeItem();
@@ -65,5 +66,31 @@ describe("<SingleItem />", () => {
     expect(img.props().src).toEqual(item.largeImage);
     expect(img.props().alt).toEqual(item.title);
     expect(wrapper.find("p").text()).toEqual(`${item.description}`);
+  });
+
+  it("errors when an item is not found", async () => {
+    const errorMessage = "Count not render the thigns!!!!";
+    // create an error mock
+    const errMocks = [
+      {
+        request: { query: SINGLE_ITEM_QUERY, variables: { id: item.id } },
+        result: {
+          errors: [new GraphQLError(errorMessage)]
+        }
+      }
+    ];
+
+    const wrapper = mount(
+      <MockedProvider mocks={errMocks}>
+        <SingleItem id={item.id} />
+      </MockedProvider>
+    );
+
+    await wait(); // wait til next tick
+    wrapper.update(); // update wrapper
+
+    const errTag = wrapper.find("[data-test='graphql-error']");
+
+    expect(errTag.text()).toContain(errorMessage);
   });
 });
