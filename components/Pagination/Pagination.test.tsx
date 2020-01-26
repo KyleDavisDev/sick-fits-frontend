@@ -34,6 +34,28 @@ describe("<Pagination />", () => {
     expect(wrapper).toBeTruthy();
   });
 
+  it("matches snapshot", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(page)}>
+        <Pagination page={page} />
+      </MockedProvider>
+    );
+
+    expect(wrapper.find("p")).toMatchSnapshot();
+
+    // let component load/update
+    await wait();
+    wrapper.update();
+
+    // check links
+    expect(
+      wrapper.find("[data-test='pagination']").find("Link")
+    ).toMatchSnapshot();
+
+    // check head
+    expect(wrapper.find("Head")).toMatchSnapshot();
+  });
+
   it("renders loading text", () => {
     const wrapper = mount(
       <MockedProvider mocks={makeMocksFor(page)}>
