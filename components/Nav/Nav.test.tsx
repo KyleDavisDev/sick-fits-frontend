@@ -97,4 +97,25 @@ describe("<Nav />", () => {
         .text()
     ).toEqual("Sign In");
   });
+
+  it("renders signed in nav when user is logged in", async () => {
+    // mount component w/ signed in user
+    const wrapper = mount(
+      <MockedProvider mocks={signedInMocks}>
+        <Nav></Nav>
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    const nav = wrapper.find('[data-test="nav"]');
+    console.log(nav.debug());
+
+    // check button count
+    expect(nav.find("Link").length).toEqual(4);
+    expect(nav.find("SignOut").exists()).toBe(true);
+    expect(nav.find("CartCount").exists()).toBe(true);
+  });
 });
