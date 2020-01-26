@@ -32,4 +32,25 @@ describe("<PleaseSignIn />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("renders the sign in dialog to sign out users", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={notSignedInMocks}>
+        <PleaseSignIn>Test</PleaseSignIn>
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    // check text
+    expect(wrapper.text()).toContain("Please sign in before you can continue!");
+
+    // check for signinuser component
+    const SignInUser = wrapper.find("SignInUser");
+    expect(SignInUser.exists()).toBe(true);
+
+    // console.log(wrapper.debug())
+  });
 });
