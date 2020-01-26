@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PleaseSignIn /> matches snapshot 1`] = `
+<TestChildComponent>
+  <p>
+    Test here
+  </p>
+</TestChildComponent>
+`;
