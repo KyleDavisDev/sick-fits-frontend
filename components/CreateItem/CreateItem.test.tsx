@@ -26,4 +26,15 @@ describe("<CreateItem />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("matches snapshot", () => {
+    const wrapper = mount(
+      <MockedProvider>
+        <CreateItem />
+      </MockedProvider>
+    );
+
+    const form = wrapper.find("form");
+    expect(form).toMatchSnapshot();
+  });
 });
