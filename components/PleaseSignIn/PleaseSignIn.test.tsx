@@ -23,6 +23,8 @@ describe("<PleaseSignIn />", () => {
     }
   ];
 
+  const TestChildComponent = () => <p>Test here</p>;
+
   it("renders", () => {
     const wrapper = mount(
       <MockedProvider mocks={notSignedInMocks}>
@@ -53,7 +55,6 @@ describe("<PleaseSignIn />", () => {
   });
 
   it("renders the child component when the user is signed in", async () => {
-    const TestChildComponent = () => <p>Test here</p>;
     const wrapper = mount(
       <MockedProvider mocks={signedInMocks}>
         <PleaseSignIn>
@@ -68,5 +69,22 @@ describe("<PleaseSignIn />", () => {
 
     //check child
     expect(wrapper.contains(<TestChildComponent />)).toBe(true);
+  });
+
+  it("matches snapshot", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={signedInMocks}>
+        <PleaseSignIn>
+          <TestChildComponent />
+        </PleaseSignIn>
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    // compare snapshots
+    expect(wrapper.find("TestChildComponent")).toMatchSnapshot();
   });
 });
