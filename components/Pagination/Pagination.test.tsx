@@ -33,4 +33,14 @@ describe("<Pagination />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("renders loading text", () => {
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(page)}>
+        <Pagination page={page} />
+      </MockedProvider>
+    );
+
+    expect(wrapper.find("p").text()).toContain("Loading");
+  });
 });
