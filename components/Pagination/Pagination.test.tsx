@@ -4,8 +4,8 @@ import { mount } from "enzyme";
 import wait from "waait";
 import { MockedProvider } from "react-apollo/test-utils";
 import Pagination, { PAGINATION_QUERY } from "./Pagination";
-
-const page = 5;
+import { perPage } from "../../config";
+let page = 1;
 
 function makeMocksFor(length: number) {
   return [
@@ -64,5 +64,26 @@ describe("<Pagination />", () => {
     );
 
     expect(wrapper.find("p").text()).toContain("Loading");
+  });
+
+  it("renders correct text many items", async () => {
+    const ranNum = Math.floor(Math.random() * 100);
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(ranNum)}>
+        <Pagination page={page} />
+      </MockedProvider>
+    );
+
+    // let component load/update
+    await wait();
+    wrapper.update();
+
+    // grab where page count is being displayed
+    const pageContainer = wrapper.find("[data-test='pagination'] p");
+
+    // check text
+    expect(pageContainer.text()).toContain(
+      `Page ${page} of ${Math.ceil(ranNum / perPage)} !`
+    );
   });
 });
