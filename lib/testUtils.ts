@@ -6,7 +6,7 @@ casual.seed(777);
 const fakeItem = () => ({
   __typename: "Item",
   created: casual.unix_time,
-  id: "abc123",
+  id: casual.uuid,
   price: 5000,
   user: null,
   image: "dog-small.jpg",
@@ -17,7 +17,7 @@ const fakeItem = () => ({
 
 const fakeUser = () => ({
   __typename: "User",
-  id: "4234",
+  id: casual.uuid,
   name: casual.name,
   email: casual.email,
   permissions: ["ADMIN"],
@@ -37,7 +37,7 @@ const fakeOrderItem = () => ({
 
 const fakeOrder = () => ({
   __typename: "Order",
-  id: "ord123",
+  id: casual.uuid,
   charge: "ch_123",
   total: 40000,
   items: [fakeOrderItem(), fakeOrderItem()],
@@ -47,9 +47,9 @@ const fakeOrder = () => ({
 
 const fakeCartItem = (overrides?: any) => ({
   __typename: "CartItem",
-  id: "omg123",
+  id: casual.uuid,
   created: casual.unix_time,
-  quantity: 3,
+  quantity: casual.integer(0, 15),
   item: fakeItem(),
   user: fakeUser(),
   ...overrides
@@ -57,7 +57,7 @@ const fakeCartItem = (overrides?: any) => ({
 
 const fakeCart = (overrides?: any) => ({
   __typename: "Cart",
-  id: "fc123",
+  id: casual.uuid,
   items: [fakeCartItem(), fakeCartItem(), fakeCartItem()],
   user: fakeUser(),
   created: casual.unix_time,
