@@ -65,4 +65,36 @@ describe("<Nav />", () => {
     // check snapshot
     expect(nav).toMatchSnapshot();
   });
+
+  it("renders signed out nav when user is not logged in", async () => {
+    // mount component w/ signed in user
+    const wrapper = mount(
+      <MockedProvider mocks={notSignedInMocks}>
+        <Nav></Nav>
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    const nav = wrapper.find('[data-test="nav"]');
+
+    // check both buttons
+    expect(nav.find("Link").length).toEqual(2);
+    // check first button text
+    expect(
+      nav
+        .find("Link")
+        .at(0)
+        .text()
+    ).toEqual("Shop");
+    // check second button text
+    expect(
+      nav
+        .find("Link")
+        .at(1)
+        .text()
+    ).toEqual("Sign In");
+  });
 });
