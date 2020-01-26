@@ -38,7 +38,7 @@ const Pagination: React.FunctionComponent<IPaginationProps> = props => {
                 Sick Fits! Page {curPage} of {pages}
               </title>
             </Head>
-            <PaginationStyles>
+            <PaginationStyles data-test="pagination">
               <Link href={{ pathname: "shop", query: { page: curPage - 1 } }}>
                 <a className="prev" aria-disabled={curPage <= 1}>
                   &larr; Prev
