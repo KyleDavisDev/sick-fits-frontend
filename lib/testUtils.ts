@@ -55,6 +55,17 @@ const fakeCartItem = (overrides?: any) => ({
   ...overrides
 });
 
+const fakeCart = (overrides?: any) => ({
+  __typename: "Cart",
+  id: "fc123",
+  items: [fakeCartItem(), fakeCartItem(), fakeCartItem()],
+  user: fakeUser(),
+  created: casual.unix_time,
+  updated: casual.unix_time,
+  isActive: true,
+  ...overrides
+});
+
 // Fake LocalStorage
 class LocalStorageMock {
   store: any;
@@ -84,6 +95,7 @@ export {
   fakeItem,
   fakeUser,
   fakeCartItem,
+  fakeCart,
   fakeOrder,
   fakeOrderItem
 };
