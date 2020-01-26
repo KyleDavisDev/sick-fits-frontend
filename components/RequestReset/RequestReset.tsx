@@ -6,7 +6,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ApolloClient from "apollo-client";
 import { CURRENT_USER_QUERY } from "../User/User";
 
-const REQUEST_RESET_QUERY = gql`
+export const REQUEST_RESET_QUERY = gql`
   query REQUEST_RESET_QUERY($email: String!) {
     requestReset(email: $email) {
       message
