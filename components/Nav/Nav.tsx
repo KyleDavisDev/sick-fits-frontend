@@ -14,7 +14,7 @@ const Nav: React.FunctionComponent<INavProps> = props => {
     <User>
       {({ data: { me } }) => {
         return (
-          <NavStyles>
+          <NavStyles data-test="nav">
             <Link href="/shop">
               <a>Shop</a>
             </Link>
