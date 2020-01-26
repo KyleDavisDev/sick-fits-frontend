@@ -50,7 +50,23 @@ describe("<PleaseSignIn />", () => {
     // check for signinuser component
     const SignInUser = wrapper.find("SignInUser");
     expect(SignInUser.exists()).toBe(true);
+  });
 
-    // console.log(wrapper.debug())
+  it("renders the child component when the user is signed in", async () => {
+    const TestChildComponent = () => <p>Test here</p>;
+    const wrapper = mount(
+      <MockedProvider mocks={signedInMocks}>
+        <PleaseSignIn>
+          <TestChildComponent />
+        </PleaseSignIn>
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    //check child
+    expect(wrapper.contains(<TestChildComponent />)).toBe(true);
   });
 });
