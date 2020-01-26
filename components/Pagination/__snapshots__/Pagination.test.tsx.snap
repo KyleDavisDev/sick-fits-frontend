@@ -13,15 +13,15 @@ Array [
       Object {
         "pathname": "shop",
         "query": Object {
-          "page": 4,
+          "page": 0,
         },
       }
     }
   >
     <a
-      aria-disabled={false}
+      aria-disabled={true}
       className="prev"
-      href="shop?page=4"
+      href="shop?page=0"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
@@ -33,7 +33,7 @@ Array [
       Object {
         "pathname": "shop",
         "query": Object {
-          "page": 6,
+          "page": 2,
         },
       }
     }
@@ -41,7 +41,7 @@ Array [
     <a
       aria-disabled={true}
       className="next"
-      href="shop?page=6"
+      href="shop?page=2"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
