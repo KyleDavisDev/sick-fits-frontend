@@ -26,10 +26,11 @@ const Pagination: React.FunctionComponent<IPaginationProps> = props => {
   return (
     <Query query={PAGINATION_QUERY}>
       {({ data, loading }) => {
+        if (loading) return <p>Loading...</p>;
+
         const count = data.itemsConnection.aggregate.count;
         const pages = Math.ceil(count / perPage);
         const curPage = props.page;
-        if (loading) return <p>Loading...</p>;
         return (
           <React.Fragment>
             <Head>
