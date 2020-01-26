@@ -91,7 +91,7 @@ export default class RequestReset extends React.Component<
     client
       .query({
         query: REQUEST_RESET_QUERY,
-        variables: this.state
+        variables: { email: this.state.email }
       })
       .then(({ data, loading }) => {
         // reset form
