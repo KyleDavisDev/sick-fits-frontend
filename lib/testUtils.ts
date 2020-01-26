@@ -5,6 +5,7 @@ casual.seed(777);
 
 const fakeItem = () => ({
   __typename: "Item",
+  created: casual.unix_time,
   id: "abc123",
   price: 5000,
   user: null,
@@ -47,6 +48,7 @@ const fakeOrder = () => ({
 const fakeCartItem = (overrides?: any) => ({
   __typename: "CartItem",
   id: "omg123",
+  created: casual.unix_time,
   quantity: 3,
   item: fakeItem(),
   user: fakeUser(),
