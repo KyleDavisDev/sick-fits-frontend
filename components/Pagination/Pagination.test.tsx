@@ -116,4 +116,19 @@ describe("<Pagination />", () => {
 
     expect(wrapper.find("a.next").prop("aria-disabled")).toEqual(true);
   });
+
+  it("renders enabled buttons on middle page", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(20)}>
+        <Pagination page={3} />
+      </MockedProvider>
+    );
+
+    // let component load/update
+    await wait();
+    wrapper.update();
+
+    expect(wrapper.find("a.prev").prop("aria-disabled")).toEqual(false);
+    expect(wrapper.find("a.next").prop("aria-disabled")).toEqual(false);
+  });
 });
