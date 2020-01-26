@@ -101,4 +101,19 @@ describe("<Pagination />", () => {
 
     expect(wrapper.find("a.prev").prop("aria-disabled")).toEqual(true);
   });
+
+  it("renders disabled next button on last page", async () => {
+    const ranNum = Math.floor(Math.random() * 100);
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(ranNum)}>
+        <Pagination page={ranNum} />
+      </MockedProvider>
+    );
+
+    // let component load/update
+    await wait();
+    wrapper.update();
+
+    expect(wrapper.find("a.next").prop("aria-disabled")).toEqual(true);
+  });
 });
