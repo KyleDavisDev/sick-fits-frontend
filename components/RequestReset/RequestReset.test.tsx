@@ -27,4 +27,17 @@ describe("<RequestReset />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("matches snapshot", () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <RequestReset />
+      </MockedProvider>
+    );
+
+    const form = wrapper.find("form");
+
+    console.log(form.debug());
+    expect(form).toMatchSnapshot();
+  });
 });
