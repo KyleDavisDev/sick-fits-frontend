@@ -86,4 +86,19 @@ describe("<Pagination />", () => {
       `Page ${page} of ${Math.ceil(ranNum / perPage)} !`
     );
   });
+
+  it("renders disabled previous button on first page", async () => {
+    const ranNum = Math.floor(Math.random() * 100);
+    const wrapper = mount(
+      <MockedProvider mocks={makeMocksFor(ranNum)}>
+        <Pagination page={page} />
+      </MockedProvider>
+    );
+
+    // let component load/update
+    await wait();
+    wrapper.update();
+
+    expect(wrapper.find("a.prev").prop("aria-disabled")).toEqual(true);
+  });
 });
