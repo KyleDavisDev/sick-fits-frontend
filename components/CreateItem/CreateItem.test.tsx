@@ -6,9 +6,6 @@ import { MockedProvider } from "react-apollo/test-utils";
 import CreateItem, { CREATE_ITEM_MUTATION } from "./CreateItem";
 import { fakeItem } from "../../lib/testUtils";
 
-// mock the global fetch API
-const dogImage = "https://dog.com/dog.jpg";
-
 describe("<CreateItem />", () => {
   it("renders", () => {
     const wrapper = mount(
@@ -32,6 +29,8 @@ describe("<CreateItem />", () => {
   });
 
   it("uploads an image when changed", async () => {
+    const dogImage = "https://dog.com/dog.jpg";
+
     // mock fetch
     // @ts-ignore
     global.fetch = jest.fn().mockResolvedValue({
@@ -66,5 +65,37 @@ describe("<CreateItem />", () => {
     // reset the global fetch
     // @ts-ignore
     global.fetch.mockReset();
+  });
+
+  it("handles state update on user input", async () => {
+    const testState = {
+      title: "testing",
+      price: 1525,
+      description: "test description"
+    };
+    const wrapper = mount(
+      <MockedProvider>
+        <CreateItem />
+      </MockedProvider>
+    );
+
+    wrapper
+      .find("#title")
+      .simulate("change", {
+        target: { value: testState.title, name: "title" }
+      });
+    wrapper.find("#price").simulate("change", {
+      target: { value: testState.price, name: "price", type: "number" }
+    });
+    wrapper.find("#description").simulate("change", {
+      target: { value: testState.description, name: "description" }
+    });
+
+    // let component update/load
+    await wait();
+    wrapper.update();
+
+    const component = wrapper.find("CreateItem").instance() as CreateItem;
+    expect(component.state).toMatchObject(testState);
   });
 });
