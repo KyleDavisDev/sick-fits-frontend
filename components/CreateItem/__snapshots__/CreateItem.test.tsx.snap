@@ -52,7 +52,7 @@ exports[`<CreateItem /> matches snapshot 1`] = `
         onChange={[Function]}
         required={true}
         type="number"
-        value={15}
+        value={0}
       />
     </label>
     <label
