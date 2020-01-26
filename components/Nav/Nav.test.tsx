@@ -5,7 +5,7 @@ import wait from "waait";
 import { MockedProvider } from "react-apollo/test-utils";
 import { CURRENT_USER_QUERY } from "../User/User";
 import Nav from "./Nav";
-import { fakeUser } from "../../lib/testUtils";
+import { fakeUser, fakeCart } from "../../lib/testUtils";
 
 describe("<Nav />", () => {
   const notSignedInMocks = [
@@ -22,10 +22,24 @@ describe("<Nav />", () => {
     }
   ];
 
+  const signedInMocksWithCart = [
+    {
+      request: { query: CURRENT_USER_QUERY },
+      result: {
+        data: {
+          me: {
+            ...fakeUser(),
+            cart: fakeCart()
+          }
+        }
+      }
+    }
+  ];
+
   it("renders", () => {
     const wrapper = mount(
       <MockedProvider mocks={notSignedInMocks}>
-        <Nav></Nav>
+        <Nav />
       </MockedProvider>
     );
 
@@ -36,7 +50,7 @@ describe("<Nav />", () => {
     // check signed out user first
     let wrapper = mount(
       <MockedProvider mocks={notSignedInMocks}>
-        <Nav></Nav>
+        <Nav />
       </MockedProvider>
     );
 
@@ -44,7 +58,7 @@ describe("<Nav />", () => {
     await wait();
     wrapper.update();
 
-    let nav = wrapper.find('[data-test="nav"]');
+    let nav = wrapper.find('ul[data-test="nav"]');
 
     // check snapshot
     expect(nav).toMatchSnapshot();
@@ -52,7 +66,7 @@ describe("<Nav />", () => {
     // mount component w/ signed in user
     wrapper = mount(
       <MockedProvider mocks={signedInMocks}>
-        <Nav></Nav>
+        <Nav />
       </MockedProvider>
     );
 
@@ -60,7 +74,7 @@ describe("<Nav />", () => {
     await wait();
     wrapper.update();
 
-    nav = wrapper.find('[data-test="nav"]');
+    nav = wrapper.find('ul[data-test="nav"]');
 
     // check snapshot
     expect(nav).toMatchSnapshot();
@@ -70,7 +84,7 @@ describe("<Nav />", () => {
     // mount component w/ signed in user
     const wrapper = mount(
       <MockedProvider mocks={notSignedInMocks}>
-        <Nav></Nav>
+        <Nav />
       </MockedProvider>
     );
 
@@ -78,7 +92,7 @@ describe("<Nav />", () => {
     await wait();
     wrapper.update();
 
-    const nav = wrapper.find('[data-test="nav"]');
+    const nav = wrapper.find('ul[data-test="nav"]');
 
     // check both buttons
     expect(nav.find("Link").length).toEqual(2);
@@ -102,7 +116,7 @@ describe("<Nav />", () => {
     // mount component w/ signed in user
     const wrapper = mount(
       <MockedProvider mocks={signedInMocks}>
-        <Nav></Nav>
+        <Nav />
       </MockedProvider>
     );
 
@@ -110,12 +124,36 @@ describe("<Nav />", () => {
     await wait();
     wrapper.update();
 
-    const nav = wrapper.find('[data-test="nav"]');
-    console.log(nav.debug());
+    const nav = wrapper.find('ul[data-test="nav"]');
 
     // check button count
     expect(nav.find("Link").length).toEqual(4);
     expect(nav.find("SignOut").exists()).toBe(true);
     expect(nav.find("CartCount").exists()).toBe(true);
+  });
+
+  it("renders amount of items in the user's cart", async () => {
+    // mount component w/ signed in user
+    const wrapper = mount(
+      <MockedProvider mocks={signedInMocksWithCart}>
+        <Nav />
+      </MockedProvider>
+    );
+
+    // allow component to load/update
+    await wait();
+    wrapper.update();
+
+    const nav = wrapper.find('ul[data-test="nav"]');
+    const count = nav.find("div.count");
+
+    // calculate the total
+    const total = signedInMocksWithCart[0].result.data.me.cart.items.reduce(
+      (accum, cartItem) => {
+        return accum + cartItem.quantity;
+      },
+      0
+    );
+    expect(count.text()).toEqual(`${total}`);
   });
 });
