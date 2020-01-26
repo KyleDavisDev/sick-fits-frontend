@@ -5,6 +5,9 @@ import wait from "waait";
 import { MockedProvider } from "react-apollo/test-utils";
 import CreateItem, { CREATE_ITEM_MUTATION } from "./CreateItem";
 import { fakeItem } from "../../lib/testUtils";
+import Router from "next/router";
+
+const item = fakeItem();
 
 describe("<CreateItem />", () => {
   it("renders", () => {
@@ -68,27 +71,20 @@ describe("<CreateItem />", () => {
   });
 
   it("handles state update on user input", async () => {
-    const testState = {
-      title: "testing",
-      price: 1525,
-      description: "test description"
-    };
     const wrapper = mount(
       <MockedProvider>
         <CreateItem />
       </MockedProvider>
     );
 
-    wrapper
-      .find("#title")
-      .simulate("change", {
-        target: { value: testState.title, name: "title" }
-      });
+    wrapper.find("#title").simulate("change", {
+      target: { value: item.title, name: "title" }
+    });
     wrapper.find("#price").simulate("change", {
-      target: { value: testState.price, name: "price", type: "number" }
+      target: { value: item.price, name: "price", type: "number" }
     });
     wrapper.find("#description").simulate("change", {
-      target: { value: testState.description, name: "description" }
+      target: { value: item.description, name: "description" }
     });
 
     // let component update/load
@@ -96,6 +92,58 @@ describe("<CreateItem />", () => {
     wrapper.update();
 
     const component = wrapper.find("CreateItem").instance() as CreateItem;
-    expect(component.state).toMatchObject(testState);
+    expect(component.state).toMatchObject({
+      title: item.title,
+      description: item.description,
+      price: item.price
+    });
+  });
+
+  it("creates an item on form submission", async () => {
+    const mocks = [
+      {
+        request: {
+          query: CREATE_ITEM_MUTATION,
+          variables: {
+            title: item.title,
+            description: item.description,
+            image: "",
+            largeImage: "",
+            price: item.price
+          }
+        },
+        result: { data: { createItem: { ...item, __typename: "item" } } }
+      }
+    ];
+
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <CreateItem />
+      </MockedProvider>
+    );
+
+    // fill out the form
+    wrapper.find("#title").simulate("change", {
+      target: { value: item.title, name: "title" }
+    });
+    wrapper.find("#price").simulate("change", {
+      target: { value: item.price, name: "price", type: "number" }
+    });
+    wrapper.find("#description").simulate("change", {
+      target: { value: item.description, name: "description" }
+    });
+
+    // mock the router
+    Router.push = jest.fn();
+
+    // submit form
+    wrapper.find("form").simulate("submit");
+
+    // let component update/load
+    await wait(50);
+    wrapper.update();
+
+    // see if we have been redirected!
+    expect(Router.push).toHaveBeenCalled();
   });
 });
