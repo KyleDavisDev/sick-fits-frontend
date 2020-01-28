@@ -8,4 +8,10 @@ describe("<PriceTag />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("matches snapshot", () => {
+    const wrapper = shallow(<PriceTag>{0}</PriceTag>);
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });
