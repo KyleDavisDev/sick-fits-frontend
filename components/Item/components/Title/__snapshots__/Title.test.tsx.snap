@@ -7,13 +7,13 @@ exports[`<Title /> matches snapshot 1`] = `
       Object {
         "pathname": "/item/view",
         "query": Object {
-          "id": "123",
+          "id": "abc123",
         },
       }
     }
   >
     <a>
-      test
+      Here is a test title
     </a>
   </Link>
 </styled.h3>
