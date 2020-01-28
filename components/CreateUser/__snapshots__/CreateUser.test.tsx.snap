@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateUser /> renders 1`] = `
+<form
+  className="sc-bdVaJa cgcGkz"
+  method="post"
+  onSubmit={[Function]}
+>
+  <fieldset
+    aria-busy={false}
+    disabled={false}
+  >
+    <ErrorMessage
+      error={Object {}}
+    />
+    <h2>
+      Sign up for an Acount
+    </h2>
+    <label
+      htmlFor="email"
+    >
+      Email
+      <input
+        name="email"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="name"
+    >
+      Name
+      <input
+        name="name"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="password"
+    >
+      Password
+      <input
+        name="password"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </label>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </fieldset>
+</form>
+`;
