@@ -15,4 +15,16 @@ describe("<CreateUser />", () => {
 
     expect(wrapper).toBeTruthy();
   });
+
+  it("renders", () => {
+    const wrapper = mount(
+      <MockedProvider>
+        <CreateUser />
+      </MockedProvider>
+    );
+
+    console.log(wrapper.debug());
+
+    expect(wrapper.find("form")).toMatchSnapshot();
+  });
 });
