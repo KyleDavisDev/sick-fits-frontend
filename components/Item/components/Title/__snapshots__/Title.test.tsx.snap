@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Title /> matches snapshot 1`] = `
+<styled.h3>
+  <Link
+    href={
+      Object {
+        "pathname": "/item/view",
+        "query": Object {
+          "id": "123",
+        },
+      }
+    }
+  >
+    <a>
+      test
+    </a>
+  </Link>
+</styled.h3>
+`;
