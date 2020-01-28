@@ -14,4 +14,22 @@ describe("<Title />", () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it("renders the expected title", () => {
+    let title = "Here is a test title";
+    const wrapper = shallow(<Title id={"123"}>{title}</Title>);
+
+    // check title
+    expect(wrapper.find("a").text()).toEqual(title);
+
+    // update title, check again
+    title = "Another title";
+    wrapper.setProps({ children: title });
+    expect(wrapper.find("a").text()).toEqual(title);
+
+    // update title, check again
+    title = "Lets go again!!";
+    wrapper.setProps({ children: title });
+    expect(wrapper.find("a").text()).toEqual(title);
+  });
 });
