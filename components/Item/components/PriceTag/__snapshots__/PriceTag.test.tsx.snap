@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PriceTag /> matches snapshot 1`] = `
+<styled.span>
+  $0
+</styled.span>
+`;
