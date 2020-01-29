@@ -40,7 +40,9 @@ export default class DeleteItem extends React.Component<
           return (
             <button
               onClick={() => {
-                if (confirm("Are you sure you want to delete this item?")) {
+                if (
+                  window.confirm("Are you sure you want to delete this item?")
+                ) {
                   deleteItem().catch((err: any) => {
                     alert(err.message);
                   });
