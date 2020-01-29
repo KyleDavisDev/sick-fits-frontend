@@ -1,4 +1,5 @@
 import casual from "casual";
+import { ReactWrapper } from "enzyme";
 
 // seed it so we get consistent results
 casual.seed(777);
@@ -90,6 +91,16 @@ class LocalStorageMock {
   }
 }
 
+function simulateInputChange(
+  wrapper: ReactWrapper,
+  name: string,
+  value: string
+) {
+  wrapper
+    .find(`input[name='${name}']`)
+    .simulate("change", { target: { name, value } });
+}
+
 export {
   LocalStorageMock,
   fakeItem,
@@ -97,5 +108,6 @@ export {
   fakeCartItem,
   fakeCart,
   fakeOrder,
-  fakeOrderItem
+  fakeOrderItem,
+  simulateInputChange
 };
