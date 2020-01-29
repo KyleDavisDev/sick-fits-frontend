@@ -5,7 +5,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { Mutation } from "react-apollo";
 import { CURRENT_USER_QUERY } from "../User/User";
 
-const RESET_USER_PASSWORD_MUTATION = gql`
+export const RESET_USER_PASSWORD_MUTATION = gql`
   mutation RESET_USER_PASSWORD_MUTATION(
     $resetToken: String!
     $password: String!
