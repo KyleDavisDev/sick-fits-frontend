@@ -7,11 +7,11 @@ import { CURRENT_USER_QUERY } from "../User/User";
 
 export const CREATEUSER_MUTATION = gql`
   mutation CREATEUSER_MUTATION(
-    $email: String!
     $name: String!
+    $email: String!
     $password: String!
   ) {
-    createNewUser(email: $email, name: $name, password: $password) {
+    createNewUser(name: $name, email: $email, password: $password) {
       id
       email
       name
@@ -22,8 +22,8 @@ export const CREATEUSER_MUTATION = gql`
 export interface ICreateUserProps {}
 
 export interface ICreateUserState {
-  email: string;
   name: string;
+  email: string;
   password: string;
   [name: string]: string;
 }
@@ -32,13 +32,17 @@ export default class CreateUser extends React.Component<
   ICreateUserProps,
   ICreateUserState
 > {
-  state = { name: "", password: "", email: "" };
+  state = { name: "", email: "", password: "" };
 
   public render() {
     return (
       <Mutation
         mutation={CREATEUSER_MUTATION}
-        variables={this.state}
+        variables={{
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+        }}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(signup, { error, loading }) => {
@@ -47,6 +51,7 @@ export default class CreateUser extends React.Component<
               onSubmit={async e => {
                 e.preventDefault();
                 await signup();
+
                 // reset form
                 this.setState({ name: "", email: "", password: "" });
               }}
