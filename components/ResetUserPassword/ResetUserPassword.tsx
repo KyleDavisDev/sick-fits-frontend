@@ -51,7 +51,7 @@ export default class ResetUserPassword extends React.Component<
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(resetPassword, { error, loading, called }) => {
+        {(resetPassword: any, { error, loading, called }: any) => {
           return (
             <Form
               onSubmit={async e => {
