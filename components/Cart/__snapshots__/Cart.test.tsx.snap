@@ -3,9 +3,10 @@
 exports[`<Cart /> renders and matches snapshot 1`] = `
 <p>
   You have 
-  0
+  3
    
   item
+  s
    
   in your cart.
 </p>
