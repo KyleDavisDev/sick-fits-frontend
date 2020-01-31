@@ -6,22 +6,40 @@ import { MockedProvider } from "react-apollo/test-utils";
 import { ApolloConsumer } from "react-apollo";
 import AddToCart, { ADD_TO_CART_MUTATION } from "./AddToCart";
 import { CURRENT_USER_QUERY } from "../User/User";
-import { fakeUser, fakeItem, fakeCart } from "../../lib/testUtils";
+import {
+  fakeUser,
+  fakeItem,
+  fakeCart,
+  fakeCartItem
+} from "../../lib/testUtils";
 
-const me = fakeUser();
+const user = fakeUser();
+console.log(user);
 const cart = fakeCart();
 const item = fakeItem();
+const cartItem = fakeCartItem();
 const mocks = [
   {
-    request: { query: ADD_TO_CART_MUTATION },
+    request: { query: CURRENT_USER_QUERY },
     result: {
-      data: { addToCart: { __typename: "Cart", id: item.id } }
+      data: { me: { ...user } }
     }
   },
   {
     request: { query: CURRENT_USER_QUERY },
     result: {
-      data: { me: { ...me, cart: { ...cart, items: [...cart.items, item] } } }
+      data: {
+        me: {
+          ...user,
+          cart: { ...user.cart, items: [cartItem] }
+        }
+      }
+    }
+  },
+  {
+    request: { query: ADD_TO_CART_MUTATION, variables: { id: item.id } },
+    result: {
+      data: { addToCart: { __typename: "Cart", id: item.id } }
     }
   }
 ];
@@ -42,7 +60,43 @@ describe("<AddToCart />", () => {
 
     // check snaps
     expect(wrapper.find("button")).toMatchSnapshot();
+  });
 
-    console.log(wrapper.debug());
+  it("adds an item to cart when clicked", async () => {
+    let apollClient;
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <ApolloConsumer>
+          {client => {
+            apollClient = client;
+            return <AddToCart id={item.id} />;
+          }}
+        </ApolloConsumer>
+      </MockedProvider>
+    );
+
+    await wait(0);
+    wrapper.update();
+
+    // get the current user
+    let res = await apollClient.query({ query: CURRENT_USER_QUERY });
+
+    // check for empty cart
+    expect(res.data.me.cart.items).toHaveLength(0);
+
+    // add item to cart
+    wrapper.find("button").simulate("click");
+
+    await wait(100);
+    wrapper.update();
+
+    // check if new item is in the cart
+    let res2 = await apollClient.query({
+      query: CURRENT_USER_QUERY
+    });
+    const me2 = res2.data.me;
+
+    // check for single item
+    expect(me2.cart.items).toHaveLength(1);
   });
 });
