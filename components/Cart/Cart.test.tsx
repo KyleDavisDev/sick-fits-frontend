@@ -34,6 +34,7 @@ describe("<Cart />", () => {
     // check snaps
     expect(wrapper.find("header p")).toMatchSnapshot();
     expect(wrapper.find("header h3")).toMatchSnapshot();
+    expect(wrapper.find("footer p")).toMatchSnapshot();
   });
 
   it("has expected cart items", async () => {
