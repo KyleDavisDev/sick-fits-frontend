@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cart /> renders and matches snapshot 1`] = `
+<p>
+  You have 
+  0
+   
+  item
+   
+  in your cart.
+</p>
+`;
+
+exports[`<Cart /> renders and matches snapshot 2`] = `
+<h3
+  className="sc-bwzfXH eqnxQe"
+>
+  Miss Katrine Schultz
+   Cart
+</h3>
+`;
