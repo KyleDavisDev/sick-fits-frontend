@@ -23,7 +23,12 @@ const fakeUser = () => ({
   email: casual.email,
   permissions: ["ADMIN"],
   orders: [],
-  cart: []
+  cart: {
+    __typename: "Cart",
+    id: casual.name,
+    items: [],
+    created: casual.unix_time
+  }
 });
 
 const fakeOrderItem = () => ({
