@@ -6,12 +6,7 @@ import { MockedProvider } from "react-apollo/test-utils";
 import { ApolloConsumer } from "react-apollo";
 import AddToCart, { ADD_TO_CART_MUTATION } from "./AddToCart";
 import { CURRENT_USER_QUERY } from "../User/User";
-import {
-  fakeUser,
-  fakeItem,
-  fakeCart,
-  fakeCartItem
-} from "../../lib/testUtils";
+import { fakeUser, fakeItem, fakeCartItem } from "../../lib/testUtils";
 
 const user = fakeUser();
 const item = fakeItem();
