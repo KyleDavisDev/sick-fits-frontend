@@ -14,8 +14,6 @@ import {
 } from "../../lib/testUtils";
 
 const user = fakeUser();
-console.log(user);
-const cart = fakeCart();
 const item = fakeItem();
 const cartItem = fakeCartItem();
 const mocks = [
