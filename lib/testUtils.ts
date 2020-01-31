@@ -25,7 +25,7 @@ const fakeUser = () => ({
   orders: [],
   cart: {
     __typename: "Cart",
-    id: casual.name,
+    id: casual.uuid,
     items: [],
     created: casual.unix_time
   }
