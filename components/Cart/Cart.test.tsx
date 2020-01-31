@@ -12,7 +12,7 @@ const me = fakeUser();
 const mocks = [
   {
     request: { query: CURRENT_USER_QUERY },
-    result: { data: { me } }
+    result: { data: { me: { ...me, cart: fakeCart() } } }
   },
   {
     request: { query: LOCAL_STATE_QUERY },
@@ -34,5 +34,19 @@ describe("<Cart />", () => {
     // check snaps
     expect(wrapper.find("header p")).toMatchSnapshot();
     expect(wrapper.find("header h3")).toMatchSnapshot();
+  });
+
+  it("has expected cart items", async () => {
+    const wrapper = mount(
+      <MockedProvider mocks={mocks}>
+        <Cart />
+      </MockedProvider>
+    );
+
+    await wait();
+    wrapper.update();
+
+    // check num items rendered
+    expect(wrapper.find("CartItem")).toHaveLength(3);
   });
 });
