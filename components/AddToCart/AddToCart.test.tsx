@@ -9,8 +9,10 @@ import { CURRENT_USER_QUERY } from "../User/User";
 import { fakeUser, fakeItem, fakeCartItem } from "../../lib/testUtils";
 
 const user = fakeUser();
+const numOfCartItems = user.cart.items.length;
 const item = fakeItem();
 const cartItem = fakeCartItem();
+
 const mocks = [
   {
     request: { query: CURRENT_USER_QUERY },
@@ -24,7 +26,7 @@ const mocks = [
       data: {
         me: {
           ...user,
-          cart: { ...user.cart, items: [cartItem] }
+          cart: { ...user.cart, items: user.cart.items.concat([cartItem]) }
         }
       }
     }
@@ -75,11 +77,12 @@ describe("<AddToCart />", () => {
     let res = await apollClient.query({ query: CURRENT_USER_QUERY });
 
     // check for empty cart
-    expect(res.data.me.cart.items).toHaveLength(0);
+    expect(res.data.me.cart.items).toHaveLength(numOfCartItems);
 
     // add item to cart
     wrapper.find("button").simulate("click");
 
+    // let component update
     await wait(100);
     wrapper.update();
 
@@ -89,8 +92,8 @@ describe("<AddToCart />", () => {
     });
     const me2 = res2.data.me;
 
-    // check for single item
-    expect(me2.cart.items).toHaveLength(1);
+    // check for one additional item to be in cart
+    expect(me2.cart.items).toHaveLength(numOfCartItems + 1);
   });
 
   it("changes from add to adding when clicked", async () => {
