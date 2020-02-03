@@ -94,6 +94,8 @@ describe("<AddToCart />", () => {
 
     // check for one additional item to be in cart
     expect(me2.cart.items).toHaveLength(numOfCartItems + 1);
+    expect(me2.cart.items[numOfCartItems].id).toBe(cartItem.id);
+    expect(me2.cart.items[numOfCartItems].quantity).toBe(cartItem.quantity);
   });
 
   it("changes from add to adding when clicked", async () => {
