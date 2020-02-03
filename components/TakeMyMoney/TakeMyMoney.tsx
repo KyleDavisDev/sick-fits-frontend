@@ -68,8 +68,9 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
     );
   }
 
-  private onToken = async (token: Token, createOrder: any) => {
+  public onToken = async (token: Token, createOrder: any) => {
     NProgress.start();
+    console.log(token);
 
     //manually call mutation
     const res = await createOrder({ variables: { token: token.id } }).catch(
