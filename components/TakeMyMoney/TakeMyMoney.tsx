@@ -34,7 +34,8 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
   render() {
     return (
       <User>
-        {({ data: { me } }) => {
+        {({ data: { me }, loading }) => {
+          if (loading) return null;
           if (!me || !me.cart || !me.cart.items.length) return <p>No items</p>;
           const totalItemCount = totalItems(me.cart);
           return (
