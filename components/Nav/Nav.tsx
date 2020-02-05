@@ -12,14 +12,14 @@ interface INavProps {}
 const Nav: React.FunctionComponent<INavProps> = props => {
   return (
     <User>
-      {({ data: { me } }) => {
+      {({ data }) => {
         return (
           <NavStyles data-test="nav">
             <Link href="/shop">
               <a>Shop</a>
             </Link>
 
-            {me && (
+            {data.me && (
               <>
                 <Link href="/sell">
                   <a>Sell</a>
@@ -38,8 +38,8 @@ const Nav: React.FunctionComponent<INavProps> = props => {
                         My Cart
                         <CartCount
                           count={
-                            me.cart && me.cart.items
-                              ? me.cart.items.reduce(
+                            data.me.cart && data.me.cart.items
+                              ? data.me.cart.items.reduce(
                                   (acc, item) => acc + item.quantity,
                                   0
                                 )
@@ -52,7 +52,7 @@ const Nav: React.FunctionComponent<INavProps> = props => {
                 </Mutation>
               </>
             )}
-            {!me && (
+            {!data.me && (
               <Link href="/Signup">
                 <a>Sign In</a>
               </Link>

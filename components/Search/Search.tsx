@@ -90,6 +90,7 @@ class AutoComplete extends React.Component<
                 {isOpen && (
                   <StyledDropDown>
                     {this.state.items.map((item, ind) => {
+                      if (!item) return;
                       return (
                         <StyledDropDownItem
                           key={item.id}

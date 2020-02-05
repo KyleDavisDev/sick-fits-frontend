@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { ReactElement } from "react";
 
 export const CURRENT_USER_QUERY = gql`
   query CURRENT_USER_QUERY {
@@ -33,7 +32,7 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 export interface IUserProps {
-  children(data: any): ReactElement;
+  children(data: any): any;
 }
 
 const User: React.FunctionComponent<IUserProps> = props => {

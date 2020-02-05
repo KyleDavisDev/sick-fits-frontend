@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 import Form from "../Form/Form";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ApolloClient from "apollo-client";
-import { CURRENT_USER_QUERY } from "../User/User";
 
 export const REQUEST_RESET_QUERY = gql`
   query REQUEST_RESET_QUERY($email: String!) {
@@ -20,7 +19,7 @@ export interface IRequestResetState {
   email: string;
   loading: boolean;
   success: boolean;
-  error?: string;
+  error?: any;
   [name: string]: string | boolean;
 }
 

@@ -5,7 +5,6 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import gql from "graphql-tag";
 import calcTotalPrice from "../../lib/calcTotalPrice";
-import Error from "../ErrorMessage/ErrorMessage";
 import User, { CURRENT_USER_QUERY } from "../User/User";
 
 export const CREATE_ORDER_MUTATION = gql`
@@ -36,6 +35,7 @@ class TakeMyMoney extends React.Component<ITakeMyMoneyProps> {
       <User>
         {({ data: { me }, loading }) => {
           if (loading) return null;
+
           if (!me || !me.cart || !me.cart.items.length) return <p>No items</p>;
           const totalItemCount = totalItems(me.cart);
           return (
