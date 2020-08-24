@@ -21,7 +21,7 @@ export interface ISignInUserProps {}
 export interface ISignInUserState {
   email: string;
   loading: boolean;
-  error?: string;
+  error?: any;
   password: string;
   [name: string]: string | boolean;
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyledLoading, StyledForm } from "./FormStyles";
+import { StyledForm } from "./FormStyles";
 
 export interface IFormProps {
   children: any;

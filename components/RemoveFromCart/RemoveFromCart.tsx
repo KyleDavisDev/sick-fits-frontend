@@ -32,7 +32,7 @@ class RemoveFromCart extends React.PureComponent<IRemoveFromCartProps> {
           }
         }}
       >
-        {(removeFromCart, { loading, error }) => {
+        {(removeFromCart: any, { loading, error }: any) => {
           if (error) console.log(error.msg);
           return (
             <StyledButton disabled={loading} onClick={removeFromCart}>
@@ -45,7 +45,13 @@ class RemoveFromCart extends React.PureComponent<IRemoveFromCartProps> {
   }
 
   // This will be called as soon as we get response from server
-  private update = (cache, payload) => {
+  private update = (
+    cache: {
+      readQuery: (arg0: { query: any }) => any;
+      writeQuery: (arg0: { query: any; data: any }) => void;
+    },
+    payload: { data: { removeFromCart: { id: any } } }
+  ) => {
     console.log("running remove from cart");
     // 1. Read the cache
     const data = cache.readQuery({ query: CURRENT_USER_QUERY });
@@ -53,7 +59,7 @@ class RemoveFromCart extends React.PureComponent<IRemoveFromCartProps> {
     // 2. Remove item from the cart
     const cartItemId = payload.data.removeFromCart.id;
     data.me.cart.items = data.me.cart.items.filter(
-      cartItem => cartItem.id !== cartItemId
+      (cartItem: { id: any }) => cartItem.id !== cartItemId
     );
 
     // 3. Write it back to the cache

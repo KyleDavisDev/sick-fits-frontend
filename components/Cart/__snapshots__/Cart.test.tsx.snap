@@ -23,6 +23,6 @@ exports[`<Cart /> renders and matches snapshot 2`] = `
 
 exports[`<Cart /> renders and matches snapshot 3`] = `
 <p>
-  $900
+  $1,050
 </p>
 `;

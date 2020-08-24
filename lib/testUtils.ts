@@ -1,5 +1,6 @@
 import casual from "casual";
 import { ReactWrapper } from "enzyme";
+import { Token } from "react-stripe-checkout";
 
 // seed it so we get consistent results
 casual.seed(777);
@@ -25,7 +26,7 @@ const fakeUser = () => ({
   orders: [],
   cart: {
     __typename: "Cart",
-    id: casual.name,
+    id: casual.uuid,
     items: [],
     created: casual.unix_time
   }
@@ -71,6 +72,20 @@ const fakeCart = (overrides?: any) => ({
   isActive: true,
   ...overrides
 });
+
+// const fakeToken = () => ({
+//   id: casual.uuid;
+//   object: "";
+//   card: {
+
+//   };
+//   client_ip: casual.ip  ;
+//   created: casual.unix_time;
+//   email: casual.email;
+//   livemode: boolean;
+//   type: string;
+//   used: boolean;
+// })
 
 // Fake LocalStorage
 class LocalStorageMock {
