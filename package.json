@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@types/next": "^7.0.3",
-    "@types/styled-components": "^4.4.2",
+    "@types/styled-components": "^5.0.0",
     "apollo-boost": "^0.1.28",
     "apollo-client": "^2.6.8",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-plugin-styled-components": "^1.10.6",
+    "babel-plugin-styled-components": "^1.10.7",
     "downshift": "^2.2.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -35,7 +35,7 @@
     "react-dom": "^16.12.0",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.9.0",
-    "styled-components": "^4.4.1",
+    "styled-components": "^5.0.1",
     "waait": "^1.0.5"
   },
   "devDependencies": {
